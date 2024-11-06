@@ -1,7 +1,22 @@
-@import "./base.css";
+@import './base.css';
 
 #app {
-  margin: 0;
-  padding: 0;
+  margin: auto;
+  padding: 1rem;
   font-weight: normal;
+}
+
+a {
+  color: rgb(0, 0, 0);
+}
+
+@media (hover: hover) {
+  a:hover {
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+  }
+
 }

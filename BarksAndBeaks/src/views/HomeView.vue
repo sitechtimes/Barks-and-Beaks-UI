@@ -1,7 +1,3 @@
-<script setup></script>
+<template></template>
 
-<template>
-  <main>
-    <button class="btn Input">Hello world!</button>
-  </main>
-</template>
+<script setup></script>
