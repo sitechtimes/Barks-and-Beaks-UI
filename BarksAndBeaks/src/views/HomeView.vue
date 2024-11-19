@@ -1,5 +1,0 @@
-<template>
-  <h1 class="btn-primary">Home</h1>
-</template>
-
-<script setup></script>
