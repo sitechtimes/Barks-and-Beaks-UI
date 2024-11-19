@@ -1,7 +1,5 @@
-<script setup></script>
-
 <template>
-  <main>
-    <h1 class="btn-primary">Home</h1>
-  </main>
+  <h1 class="">Home</h1>
 </template>
+
+<script setup></script>

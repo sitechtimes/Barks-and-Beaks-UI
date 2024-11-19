@@ -1,7 +1,10 @@
 <script setup></script>
 
 <template>
-  <header></header>
+  <main class="p-3">
+    <header class="flex items-center max-h-screen">
+    </header>
 
-  <RouterView />
+    <RouterView />
+  </main>
 </template>
