@@ -3,12 +3,8 @@
 <template>
   <main class="p-3">
     <header class="flex items-center max-h-screen">
-      <div class="card bg-base-100 w-96 shadow-xl">
-        <h1 class="card-title">Barks and Beaks</h1>
-        <p class="card-body">A Vue 3 Template</p>
-        <div class="card-actions justify-end">
-          <button href="" class="btn btn-primary">Buy</button>
-        </div>
+      <div class="card w-full flex items-center justify-center p-3 bg-gradient-to-b from-[#576395] to-[#314596]">
+        <h1 class="btn-primary font-bold text-5xl">Barks and Beaks</h1>
       </div>
     </header>
 
