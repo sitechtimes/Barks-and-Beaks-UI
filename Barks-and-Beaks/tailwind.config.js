@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{vue,js,ts,jsx,tsx}"], // Path to your Vue files
+  content: ["./src/App.vue", "./src/**/*.{vue,js,ts,jsx,tsx}"], // Path to your Vue files
   theme: {
     extend: {
       colors: {
@@ -32,4 +32,5 @@ export default {
     },
   },
   plugins: [require("daisyui")],
+  
 };
