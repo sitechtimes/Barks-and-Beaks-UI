@@ -1,7 +1,8 @@
 <template>
-  <div
+  <div class="flex flex-col items-center">    <div
     class="flex flex-col items-center md:flex-row p-5 gap-2 md:gap-5 w-full"
   >
+    <!-- Make some kind of dinsguisher that this is the drinks section-->
     <label class="input input-bordered flex items-center gap-2 w-full md:4/5">
       <input
         id="search"
@@ -26,11 +27,12 @@
     </label>
     <div class="w-full md:w-1/5 flex items-center justify-center z-[1]">
       <div class="dropdown w-full">
-        <label tabindex="0" class="btn m-1 w-full">Drink Filter</label>
+        <label tabindex="0" class="btn m-1 w-full">Order Filter</label>
         <ul
           tabindex="0"
           class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
         >
+        <li><h2 class="font-bold">Drinks</h2></li>
           <li>
             <label class="flex items-center">
               <input
@@ -79,6 +81,7 @@
       </div>
     </div>
   </div>
+  <h1 class="text-3xl font-semibold text-center my-3 font-mono">What can we get you started with?</h1>
 
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     <div
@@ -94,8 +97,9 @@
       <h1 class="text-3xl font-semibold text-center">
         {{ drink.name }}
       </h1>
-      <p class="text-3xl font-bold text-center">${{ drink.Price }}</p>
+      <p class="text-3xl font-bold text-center">${{ parseFloat(drink.options.price).toFixed(2) }}</p>
     </div>
+  </div>
   </div>
 </template>
 
@@ -111,7 +115,7 @@ const filteredDrinks = computed(() =>
   data.filter(
     (drink) =>
       (selectedCategories.value.length === 0 ||
-        selectedCategories.value.includes(drink.Category)) &&
+        selectedCategories.value.includes(drink.options.category)) &&
       drink.name.toLowerCase().includes(search.value.toLowerCase())
   )
 );

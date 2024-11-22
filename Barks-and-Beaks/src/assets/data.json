@@ -1,37 +1,57 @@
 [
   {
     "name": "Espresso Delight",
-    "Ingredients": ["Espresso", "Water"],
-    "Category": "Coffee",
-    "Price": "3.50"
+    "description": "A rich and robust shot of espresso mixed with water for a classic delight.",
+    "image": "espresso_delight.jpg",
+    "options": {
+      "category": "Coffee",
+      "price": 3.5,
+      "ingredients": ["Espresso", "Water"]
+    }
   },
   {
     "name": "Berry Blast Smoothie",
-    "Ingredients": ["Strawberries", "Blueberries", "Banana", "Yogurt"],
-    "Category": "Smoothie",
-    "Price": "5.00"
+    "description": "A refreshing smoothie packed with the goodness of berries and banana blended with yogurt.",
+    "image": "berry_blast_smoothie.jpg",
+    "options": {
+      "category": "Smoothie",
+      "price": 5.0,
+      "ingredients": ["Strawberries", "Blueberries", "Banana", "Yogurt"]
+    }
   },
   {
     "name": "Matcha Green Tea Latte",
-    "Ingredients": ["Matcha Powder", "Milk", "Honey"],
-    "Category": "Tea",
-    "Price": "4.50"
+    "description": "A creamy and invigorating latte made with matcha powder, milk, and a hint of honey.",
+    "image": "matcha_green_tea_latte.jpg",
+    "options": {
+      "category": "Tea",
+      "price": 4.5,
+      "ingredients": ["Matcha Powder", "Milk", "Honey"]
+    }
   },
   {
     "name": "Citrus Punch",
-    "Ingredients": [
-      "Orange Juice",
-      "Lemon Juice",
-      "Lime Juice",
-      "Sparkling Water"
-    ],
-    "Category": "Juice",
-    "Price": "4.00"
+    "description": "A tangy and fizzy drink made with orange, lemon, and lime juices mixed with sparkling water.",
+    "image": "citrus_punch.jpg",
+    "options": {
+      "category": "Juice",
+      "price": 4.0,
+      "ingredients": [
+        "Orange Juice",
+        "Lemon Juice",
+        "Lime Juice",
+        "Sparkling Water"
+      ]
+    }
   },
   {
     "name": "Classic Lemonade",
-    "Ingredients": ["Lemon Juice", "Water", "Sugar"],
-    "Category": "Lemonade",
-    "Price": "2.50"
+    "description": "A timeless refreshment combining the perfect balance of lemon juice, water, and sugar.",
+    "image": "classic_lemonade.jpg",
+    "options": {
+      "category": "Lemonade",
+      "price": 2.5,
+      "ingredients": ["Lemon Juice", "Water", "Sugar"]
+    }
   }
 ]
