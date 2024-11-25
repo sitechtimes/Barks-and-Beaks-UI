@@ -6,7 +6,8 @@
     "options": {
       "category": "Coffee",
       "price": 3.5,
-      "ingredients": ["Espresso", "Water"]
+      "ingredients": ["Espresso", "Water"],
+      "type": "Drink"
     }
   },
   {
@@ -16,7 +17,8 @@
     "options": {
       "category": "Smoothie",
       "price": 5.0,
-      "ingredients": ["Strawberries", "Blueberries", "Banana", "Yogurt"]
+      "ingredients": ["Strawberries", "Blueberries", "Banana", "Yogurt"],
+      "type": "Featured"
     }
   },
   {
@@ -26,7 +28,8 @@
     "options": {
       "category": "Tea",
       "price": 4.5,
-      "ingredients": ["Matcha Powder", "Milk", "Honey"]
+      "ingredients": ["Matcha Powder", "Milk", "Honey"],
+      "type": "Drink"
     }
   },
   {
@@ -41,7 +44,8 @@
         "Lemon Juice",
         "Lime Juice",
         "Sparkling Water"
-      ]
+      ],
+      "type": "Drink"
     }
   },
   {
@@ -51,7 +55,60 @@
     "options": {
       "category": "Lemonade",
       "price": 2.5,
-      "ingredients": ["Lemon Juice", "Water", "Sugar"]
+      "ingredients": ["Lemon Juice", "Water", "Sugar"],
+      "type": "Drink"
+    }
+  },
+  {
+    "name": "Croissant",
+    "description": "Flaky, buttery, and crispy, our croissants are a delicious breakfast treat.",
+    "image": "croissant.jpg",
+    "options": {
+      "category": "Bakery",
+      "price": 2.0,
+      "ingredients": ["Flour", "Butter", "Sugar", "Eggs"],
+      "type": "Bakery"
+    }
+  },
+  {
+    "name": "Cinnamon Swirl Buns",
+    "description": "Soft and fluffy, these cinnamon swirled buns are a perfect sweet treat.",
+    "image": "cinnamon_swirl_buns.jpg",
+    "options": {
+      "category": "Bakery",
+      "price": 2.0,
+      "ingredients": ["Flour", "Butter", "Sugar", "Cinnamon", "Eggs"],
+      "type": "Featured"
+    }
+  },
+  {
+    "name": "Bagel",
+    "description": "A classic bagel, perfect for toasting and spreading with cream cheese or lox.",
+    "image": "bagel.jpg",
+    "options": {
+      "category": "Other",
+      "price": 2.0,
+      "ingredients": ["Flour", "Yeast", "Water", "Salt", "Sugar"],
+      "type": "Other"
+    }
+  },
+  {
+    "name": "Granola",
+    "description": "A crunchy and nutritious snack, perfect for munching on the go.",
+    "image": "granola.jpg",
+    "options": {
+      "category": "Other",
+      "price": 5.0,
+      "ingredients": [
+        "Oats",
+        "Almonds",
+        "Cashews",
+        "Pumpkin Seeds",
+        "Honey",
+        "Sunflower Seeds",
+        "Coconut Oil"
+      ],
+      "type": "Other"
     }
   }
 ]
