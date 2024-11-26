@@ -83,7 +83,7 @@
     </div>
   </div>
   <h1 class="text-3xl font-semibold text-center my-3 font-mono">What can we get you started with?</h1>
-  <h1 class="text-3xl font-semibold text-center my-3 font-serif underline">Featured</h1>
+  <h1 class="text-3xl font-semibold text-center my-3 font-serif underline" v-if="featured.length > 0">Featured</h1>
   <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
     <div
       class="card flex items-center justify-center p-3 shadow-lg h-max min-h-80 w-full"
@@ -92,7 +92,7 @@
     >
       <div class="avatar">
         <div class="w-32 rounded-full">
-          <img :src="item.image" alt="Kitten" />
+          <img src="https://placekitten.com/g/300/300" :alt="item.name" />
         </div>
       </div>
       <h1 class="text-3xl font-semibold text-center">
@@ -101,40 +101,40 @@
       <p class="text-3xl font-bold text-center">${{ parseFloat(item.options.price).toFixed(2) }}</p>
     </div>
   </div>
-  <h1 class="text-3xl font-semibold text-center my-3 font-serif underline">Drinks</h1>
+  <h1 class="text-3xl font-semibold text-center my-3 font-serif underline" v-if="drinks.length > 0">Drinks</h1>
   <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
     <div
       class="card flex items-center justify-center p-3 shadow-lg h-max min-h-80 w-full"
-      v-for="drink in drinks"
-      :key="drink"
+      v-for="item in drinks"
+      :key="item"
     >
       <div class="avatar">
         <div class="w-32 rounded-full">
-          <img :src="item.image" alt="Kitten" />
+          <img src="https://placekitten.com/g/300/300" :alt="item.name" />
         </div>
       </div>
       <h1 class="text-3xl font-semibold text-center">
-        {{ drink.name }}
+        {{ item.name }}
       </h1>
-      <p class="text-3xl font-bold text-center">${{ parseFloat(drink.options.price).toFixed(2) }}</p>
+      <p class="text-3xl font-bold text-center">${{ parseFloat(item.options.price).toFixed(2) }}</p>
     </div>
   </div>
-  <h1 class="text-3xl font-semibold text-center my-3 font-serif underline">Bakery</h1>
+  <h1 class="text-3xl font-semibold text-center my-3 font-serif underline" v-if="bakery.length > 0">Bakery</h1>
   <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
     <div
       class="card flex items-center justify-center p-3 shadow-lg h-max min-h-80 w-full"
-      v-for="bakeryItem in bakery"
-      :key="bakeryItem"
+      v-for="item in bakery"
+      :key="item"
     >
       <div class="avatar">
         <div class="w-32 rounded-full">
-          <img :src="item.image" alt="Kitten" />
+          <img src="https://placekitten.com/g/300/300" :alt="item.name" />
         </div>
       </div>
       <h1 class="text-3xl font-semibold text-center">
-        {{ bakeryItem.name }}
+        {{ item.name }}
       </h1>
-      <p class="text-3xl font-bold text-center">${{ parseFloat(bakeryItem.options.price).toFixed(2) }}</p>
+      <p class="text-3xl font-bold text-center">${{ parseFloat(item.options.price).toFixed(2) }}</p>
     </div>
   </div>
   </div>
@@ -149,23 +149,29 @@ const selectedCategories = ref([]);
 const search = ref("");
 
 const drinks = computed(() =>
-  data.filter((item) => item.options.type === "Drink")
-);
-
-const featured = computed(() =>
-  data.filter((item) => item.options.type === "Featured")
-);
-
-const bakery = computed(() =>
-  data.filter((item) => item.options.type === "Bakery")
-);
-
-const filteredItems = computed(() =>
   data.filter(
     (item) =>
       (selectedCategories.value.length === 0 ||
         selectedCategories.value.includes(item.options.category)) &&
       item.name.toLowerCase().includes(search.value.toLowerCase())
-  )
+  ).filter((item) => item.options.type === "Drink")
+);
+
+const featured = computed(() =>
+data.filter(
+    (item) =>
+      (selectedCategories.value.length === 0 ||
+        selectedCategories.value.includes(item.options.category)) &&
+      item.name.toLowerCase().includes(search.value.toLowerCase())
+  ).filter((item) => item.options.type === "Featured")
+);
+
+const bakery = computed(() =>
+  data.filter(
+    (item) =>
+      (selectedCategories.value.length === 0 ||
+        selectedCategories.value.includes(item.options.category)) &&
+      item.name.toLowerCase().includes(search.value.toLowerCase())
+  ).filter((item) => item.options.type === "Bakery")
 );
 </script>
