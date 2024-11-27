@@ -85,64 +85,29 @@
   <h1 class="text-3xl font-semibold text-center my-3 font-mono">What can we get you started with?</h1>
   <h1 class="text-3xl font-semibold text-center my-3 font-serif underline" v-if="featured.length > 0">Featured</h1>
   <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
-    <div
-      class="card flex items-center justify-center p-3 shadow-lg h-max min-h-80 w-full"
-      v-for="item in featured"
-      :key="item"
-    >
-      <div class="avatar">
-        <div class="w-32 rounded-full">
-          <img src="https://placekitten.com/g/300/300" :alt="item.name" />
-        </div>
-      </div>
-      <h1 class="text-3xl font-semibold text-center">
-        {{ item.name }}
-      </h1>
-      <p class="text-3xl font-bold text-center">${{ parseFloat(item.options.price).toFixed(2) }}</p>
-    </div>
+    <itemCard
+        :items="featured"
+      />
   </div>
   <h1 class="text-3xl font-semibold text-center my-3 font-serif underline" v-if="drinks.length > 0">Drinks</h1>
   <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
-    <div
-      class="card flex items-center justify-center p-3 shadow-lg h-max min-h-80 w-full"
-      v-for="item in drinks"
-      :key="item"
-    >
-      <div class="avatar">
-        <div class="w-32 rounded-full">
-          <img src="https://placekitten.com/g/300/300" :alt="item.name" />
-        </div>
-      </div>
-      <h1 class="text-3xl font-semibold text-center">
-        {{ item.name }}
-      </h1>
-      <p class="text-3xl font-bold text-center">${{ parseFloat(item.options.price).toFixed(2) }}</p>
-    </div>
+    <itemCard
+        :items="drinks"
+      />
   </div>
   <h1 class="text-3xl font-semibold text-center my-3 font-serif underline" v-if="bakery.length > 0">Bakery</h1>
-  <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
-    <div
-      class="card flex items-center justify-center p-3 shadow-lg h-max min-h-80 w-full"
-      v-for="item in bakery"
-      :key="item"
-    >
-      <div class="avatar">
-        <div class="w-32 rounded-full">
-          <img src="https://placekitten.com/g/300/300" :alt="item.name" />
-        </div>
-      </div>
-      <h1 class="text-3xl font-semibold text-center">
-        {{ item.name }}
-      </h1>
-      <p class="text-3xl font-bold text-center">${{ parseFloat(item.options.price).toFixed(2) }}</p>
+    <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <itemCard
+        :items="bakery"
+      />
     </div>
-  </div>
   </div>
 </template>
 
 <script setup>
 import data from "../assets/data.json";
 import { ref, computed } from "vue";
+import itemCard from "@/components/itemCard.vue";
 
 const selectedCategories = ref([]);
 

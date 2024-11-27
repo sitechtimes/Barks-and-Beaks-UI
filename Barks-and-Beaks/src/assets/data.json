@@ -18,7 +18,7 @@
       "category": "Smoothie",
       "price": 5.0,
       "ingredients": ["Strawberries", "Blueberries", "Banana", "Yogurt"],
-      "type": "Featured"
+      "type": "Drink"
     }
   },
   {
@@ -29,7 +29,7 @@
       "category": "Tea",
       "price": 4.5,
       "ingredients": ["Matcha Powder", "Milk", "Honey"],
-      "type": "Drink"
+      "type": "Featured"
     }
   },
   {
@@ -56,7 +56,7 @@
       "category": "Lemonade",
       "price": 2.5,
       "ingredients": ["Lemon Juice", "Water", "Sugar"],
-      "type": "Drink"
+      "type": "Featured"
     }
   },
   {
@@ -78,7 +78,7 @@
       "category": "Bakery",
       "price": 2.0,
       "ingredients": ["Flour", "Butter", "Sugar", "Cinnamon", "Eggs"],
-      "type": "Featured"
+      "type": "Bakery"
     }
   },
   {
