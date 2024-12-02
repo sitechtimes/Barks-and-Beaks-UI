@@ -95,7 +95,7 @@
       <itemCard :items="featured" />
     </div>
     <h1
-      class="text-3xl font-semibold text-center my-3 font-serif underline"
+      class="text-3xl font-semibold text-center my-3 font-serif underline mt-5"
       v-if="drinks.length > 0"
     >
       Drinks
@@ -109,7 +109,7 @@
     >
       Bakery
     </h1>
-    <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5">
       <itemCard :items="bakery" />
     </div>
   </div>
