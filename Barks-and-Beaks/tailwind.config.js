@@ -32,4 +32,21 @@ export default {
     },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+        primary: "#314596",
+        secondary: "#576395",
+        accent: "#94A3B8",
+        neutral: "#E5E7EB",
+        "base-100": "#F3F4F6",
+        info: "#3ABFF8",
+        success: "#36D399",
+        warning: "#FBBD23",
+        error: "#F87272",
+        },
+    }
+    ],
+  },
 };
