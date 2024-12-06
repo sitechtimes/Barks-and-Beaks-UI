@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center">
+  <div class="flex flex-col items-center mx-6">
     <div
       class="flex flex-col items-center md:flex-row p-5 gap-2 md:gap-5 w-full"
     >
@@ -28,7 +28,7 @@
       </label>
       <div class="w-full md:w-1/5 flex items-center justify-center z-[1]">
         <div class="dropdown w-full">
-          <label tabindex="0" class="btn m-1 w-full">Order Filter</label>
+          <label tabindex="0" class="btn m-1 w-full font-josefin">Order Filter</label>
           <ul
             tabindex="0"
             class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
@@ -86,7 +86,7 @@
       What can we get you started with?
     </h1>
     <h1
-      class="text-3xl font-semibold text-center my-3 font-serif underline"
+      class="text-2xl font-semibold text-center my-3  underline"
       v-if="featured.length > 0"
     >
       Featured
@@ -95,7 +95,7 @@
       <itemCard :items="featured" />
     </div>
     <h1
-      class="text-3xl font-semibold text-center my-3 font-serif underline mt-5"
+      class="text-2xl font-semibold text-center my-3  underline mt-5"
       v-if="drinks.length > 0"
     >
       Drinks
@@ -104,7 +104,7 @@
       <itemCard :items="drinks" />
     </div>
     <h1
-      class="text-3xl font-semibold text-center my-3 font-serif underline"
+      class="text-2xl font-semibold text-center my-3  underline"
       v-if="bakery.length > 0"
     >
       Bakery
@@ -157,3 +157,4 @@ const bakery = computed(() =>
     .filter((item) => item.options.type === "Bakery")
 );
 </script>
+
