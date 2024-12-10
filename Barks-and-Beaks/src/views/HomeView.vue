@@ -28,7 +28,9 @@
       </label>
       <div class="w-full md:w-1/5 flex items-center justify-center z-[1]">
         <div class="dropdown w-full">
-          <label tabindex="0" class="btn m-1 w-full font-josefin">Order Filter</label>
+          <label tabindex="0" class="btn m-1 w-full font-josefin"
+            >Order Filter</label
+          >
           <ul
             tabindex="0"
             class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
@@ -82,35 +84,39 @@
         </div>
       </div>
     </div>
-    <h1 class="text-3xl font-semibold text-center my-3 font-mono">
-      What can we get you started with?
-    </h1>
-    <h1
-      class="text-2xl font-semibold text-center my-3  underline"
-      v-if="featured.length > 0"
-    >
-      Featured
-    </h1>
-    <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <itemCard :items="featured" />
-    </div>
-    <h1
-      class="text-2xl font-semibold text-center my-3  underline mt-5"
-      v-if="drinks.length > 0"
-    >
-      Drinks
-    </h1>
-    <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <itemCard :items="drinks" />
-    </div>
-    <h1
-      class="text-2xl font-semibold text-center my-3  underline"
-      v-if="bakery.length > 0"
-    >
-      Bakery
-    </h1>
-    <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5">
-      <itemCard :items="bakery" />
+    <div class="z-0">
+      <h1 class="text-3xl font-semibold text-center my-3 font-mono">
+        What can we get you started with?
+      </h1>
+      <h1
+        class="text-2xl font-semibold text-center my-3 underline"
+        v-if="featured.length > 0"
+      >
+        Featured
+      </h1>
+      <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <itemCard :items="featured" />
+      </div>
+      <h1
+        class="text-2xl font-semibold text-center my-3 underline mt-5"
+        v-if="drinks.length > 0"
+      >
+        Drinks
+      </h1>
+      <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <itemCard :items="drinks" />
+      </div>
+      <h1
+        class="text-2xl font-semibold text-center my-3 underline"
+        v-if="bakery.length > 0"
+      >
+        Bakery
+      </h1>
+      <div
+        class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5"
+      >
+        <itemCard :items="bakery" />
+      </div>
     </div>
   </div>
 </template>
@@ -157,4 +163,3 @@ const bakery = computed(() =>
     .filter((item) => item.options.type === "Bakery")
 );
 </script>
-
