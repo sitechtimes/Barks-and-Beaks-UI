@@ -1,114 +1,102 @@
 [
   {
-    "name": "Espresso Delight",
-    "description": "A rich and robust shot of espresso mixed with water for a classic delight.",
-    "image": "espresso_delight.jpg",
+    "name": "Cold-Brew Coffee",
+    "description": "A smooth and refreshing cold-brew coffee to start your day.",
+    "image": "cold_brew_coffee.jpg",
     "options": {
       "category": "Coffee",
-      "price": 3.5,
-      "ingredients": ["Espresso", "Water"],
+      "price": 3.0,
       "type": "Drink"
     }
   },
   {
-    "name": "Berry Blast Smoothie",
-    "description": "A refreshing smoothie packed with the goodness of berries and banana blended with yogurt.",
-    "image": "berry_blast_smoothie.jpg",
-    "options": {
-      "category": "Smoothie",
-      "price": 5.0,
-      "ingredients": ["Strawberries", "Blueberries", "Banana", "Yogurt"],
-      "type": "Drink"
-    }
-  },
-  {
-    "name": "Matcha Green Tea Latte",
-    "description": "A creamy and invigorating latte made with matcha powder, milk, and a hint of honey.",
-    "image": "matcha_green_tea_latte.jpg",
+    "name": "Iced Tea",
+    "description": "A classic iced tea brewed to perfection and served chilled.",
+    "image": "iced_tea.jpg",
     "options": {
       "category": "Tea",
-      "price": 4.5,
-      "ingredients": ["Matcha Powder", "Milk", "Honey"],
-      "type": "Featured"
-    }
-  },
-  {
-    "name": "Citrus Punch",
-    "description": "A tangy and fizzy drink made with orange, lemon, and lime juices mixed with sparkling water.",
-    "image": "citrus_punch.jpg",
-    "options": {
-      "category": "Juice",
-      "price": 4.0,
-      "ingredients": [
-        "Orange Juice",
-        "Lemon Juice",
-        "Lime Juice",
-        "Sparkling Water"
-      ],
+      "price": 3.0,
       "type": "Drink"
     }
   },
   {
-    "name": "Classic Lemonade",
-    "description": "A timeless refreshment combining the perfect balance of lemon juice, water, and sugar.",
-    "image": "classic_lemonade.jpg",
+    "name": "Peppermint Dream",
+    "description": "A delightful peppermint-flavored treat to brighten your day.",
+    "image": "peppermint_dream.jpg",
     "options": {
-      "category": "Lemonade",
-      "price": 2.5,
-      "ingredients": ["Lemon Juice", "Water", "Sugar"],
-      "type": "Featured"
+      "category": "Featured",
+      "price": 4.0,
+      "type": "Drink"
     }
   },
   {
-    "name": "Croissant",
-    "description": "Flaky, buttery, and crispy, our croissants are a delicious breakfast treat.",
-    "image": "croissant.jpg",
+    "name": "Cookie Butter",
+    "description": "A creamy and rich cookie butter-flavored delight.",
+    "image": "cookie_butter.jpg",
+    "options": {
+      "category": "Bakery",
+      "price": 4.0,
+      "type": "Snack"
+    }
+  },
+  {
+    "name": "Belgian Waffle",
+    "description": "A soft and fluffy Belgian waffle, perfect for breakfast or a snack.",
+    "image": "belgian_waffle.jpg",
     "options": {
       "category": "Bakery",
       "price": 2.0,
-      "ingredients": ["Flour", "Butter", "Sugar", "Eggs"],
       "type": "Bakery"
     }
   },
   {
-    "name": "Cinnamon Swirl Buns",
-    "description": "Soft and fluffy, these cinnamon swirled buns are a perfect sweet treat.",
-    "image": "cinnamon_swirl_buns.jpg",
+    "name": "Churro Bites",
+    "description": "Mini churro bites dusted with cinnamon sugar, a perfect sweet treat.",
+    "image": "churro_bites.jpg",
     "options": {
       "category": "Bakery",
       "price": 2.0,
-      "ingredients": ["Flour", "Butter", "Sugar", "Cinnamon", "Eggs"],
       "type": "Bakery"
     }
   },
   {
-    "name": "Bagel",
-    "description": "A classic bagel, perfect for toasting and spreading with cream cheese or lox.",
-    "image": "bagel.jpg",
+    "name": "Brownie",
+    "description": "A rich and fudgy brownie to satisfy your chocolate cravings.",
+    "image": "brownie.jpg",
     "options": {
-      "category": "Other",
-      "price": 2.0,
-      "ingredients": ["Flour", "Yeast", "Water", "Salt", "Sugar"],
-      "type": "Other"
+      "category": "Bakery",
+      "price": 3.0,
+      "type": "Bakery"
     }
   },
   {
-    "name": "Granola",
-    "description": "A crunchy and nutritious snack, perfect for munching on the go.",
-    "image": "granola.jpg",
+    "name": "Breakfast Snack Pack",
+    "description": "A convenient breakfast pack with a mix of your favorite morning snacks.",
+    "image": "breakfast_snack_pack.jpg",
     "options": {
-      "category": "Other",
+      "category": "Bakery",
       "price": 5.0,
-      "ingredients": [
-        "Oats",
-        "Almonds",
-        "Cashews",
-        "Pumpkin Seeds",
-        "Honey",
-        "Sunflower Seeds",
-        "Coconut Oil"
-      ],
-      "type": "Other"
+      "type": "Snack"
+    }
+  },
+  {
+    "name": "Fruit Cup",
+    "description": "A fresh and healthy mix of seasonal fruits.",
+    "image": "fruit_cup.jpg",
+    "options": {
+      "category": "Bakery",
+      "price": 1.0,
+      "type": "Snack"
+    }
+  },
+  {
+    "name": "Yogurt Parfait",
+    "description": "A layered yogurt parfait with granola and fresh fruits.",
+    "image": "yogurt_parfait.jpg",
+    "options": {
+      "category": "Bakery",
+      "price": 1.0,
+      "type": "Snack"
     }
   }
 ]

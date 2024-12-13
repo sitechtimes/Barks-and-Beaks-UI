@@ -47,7 +47,7 @@ body {
   color: var(--color-text);
   line-height: 1.6;
   font-size: 15px;
-  font-family: josefin sans, sans-serif;
+  font-family: "josefin sans", "sans-serif";
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
