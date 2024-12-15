@@ -37,16 +37,13 @@
       >
         Featured
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <itemCard :items="featured" />
-      </div>
       <h1
-        class="text-2xl font-semibold text-center my-3 underline mt-5"
+        class="text-2xl font-semibold text-center my-3 underline mt-5 justify-center"
         v-if="drinks.length > 0"
       >
         Drinks
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-4">
         <itemCard :items="drinks" />
       </div>
       <h1
@@ -55,7 +52,7 @@
       >
         Bakery
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-4">
         <itemCard :items="bakery" />
       </div>
       <h1
@@ -64,19 +61,19 @@
       >
         Snacks
       </h1>
-      <div
-        class="grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5"
-      >
+      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-4 mt-5">
         <itemCard :items="snacks" />
       </div>
     </div>
   </div>
+  <addToCart v-if="cartOpen" :item="itemInCart" @closeCart="cartOpen = false" />
 </template>
 
 <script setup>
 import data from "../assets/data.json";
 import { ref, computed } from "vue";
 import itemCard from "@/components/itemCard.vue";
+import addToCart from "@/components/addToCart.vue";
 
 const search = ref("");
 
@@ -110,4 +107,5 @@ const bakery = computed(() =>
     )
     .filter((item) => item.options.type === "Bakery")
 );
+const cartOpen = ref(false);
 </script>

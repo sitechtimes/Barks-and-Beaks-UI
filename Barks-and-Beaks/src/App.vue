@@ -15,12 +15,12 @@
     </header>
     <footer class="flex items-center justify-center z-20">
       <button
-        class="btn rounded-full btn-outline font-bold text-sm md:text-2xl fixed bottom-1 right-1 md:right-5 w-10 h-10 transition-all duration-300 ease-in-out hover:w-32 hover:h-12 flex items-center justify-center overflow-hidden"
+        class="btn rounded-full btn-outline text-sm md:text-2xl fixed bottom-1 right-1 md:right-5 w-10 h-10 transition-all duration-300 ease-in-out hover:w-32 hover:h-12 flex items-center justify-center overflow-hidden"
         @click="$router.push('/admin')"
         v-if="!$route.path.includes('admin')"
       >
         <span
-          class="opacity-0 hover:opacity-100 transition-opacity duration-300 w-full h-full flex items-center justify-center"
+          class="opacity-0 hover:opacity-100 font-bold transition-opacity duration-300 w-full h-full flex items-center justify-center"
         >
           Login
         </span>
