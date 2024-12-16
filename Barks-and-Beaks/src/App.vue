@@ -6,6 +6,14 @@
       <div
         class="w-full flex items-center p-14 md:p-9 bg-gradient-to-b from-[#576395] to-[#314596] flex-col md:flex-row justify-center z-10"
       >
+        <button
+          class="btn btn-outline font-bold text-sm md:text-2xl fixed top-1 left-1 md:left-5 z-0"
+          @click="$router.push('/')"
+          v-if="$route.path !== '/'"
+        >
+          Home
+          <!-- Change to a home logo-->
+        </button>
         <h1
           class="btn-primary font-bold text-4xl md:text-5xl lg:text-7xl mb-3 md:mb-0 md:mr-10"
         >
@@ -34,6 +42,13 @@
         Home
       </button>
     </footer>
+
     <RouterView />
   </main>
 </template>
+
+<script setup>
+import { RouterView, useRoute } from "vue-router";
+
+const route = useRoute();
+</script>

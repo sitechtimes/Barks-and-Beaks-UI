@@ -3,7 +3,6 @@
     <div
       class="flex flex-col items-center md:flex-row p-5 gap-2 md:gap-5 w-full"
     >
-      <!-- Search bar -->
       <label class="input input-bordered flex items-center gap-2 w-full md:4/5">
         <input
           id="search"
@@ -30,12 +29,6 @@
     <div class="z-0">
       <h1 class="text-3xl font-semibold text-center my-3 font-mono">
         What can we get you started with?
-      </h1>
-      <h1
-        class="text-2xl font-semibold text-center my-3 underline"
-        v-if="featured.length > 0"
-      >
-        Featured
       </h1>
       <h1
         class="text-2xl font-semibold text-center my-3 underline mt-5 justify-center"
@@ -66,14 +59,12 @@
       </div>
     </div>
   </div>
-  <addToCart v-if="cartOpen" :item="itemInCart" @closeCart="cartOpen = false" />
 </template>
 
 <script setup>
 import data from "../assets/data.json";
 import { ref, computed } from "vue";
 import itemCard from "@/components/itemCard.vue";
-import addToCart from "@/components/addToCart.vue";
 
 const search = ref("");
 

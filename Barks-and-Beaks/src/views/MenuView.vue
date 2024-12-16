@@ -1,16 +1,29 @@
 <template>
   <div
-    class="flex items-center justify-center bg-gray-100 h-full w-full border border-base-400 border-l-base-300 border-t-base-200 border-r-base-300"
+    class="flex items-center justify-center bg-gray-100 h-full w-full sm:mt-4"
   >
+    <!-- Fix the fact that when on small devices the title gets lost-->
     <div class="card card-body">
       <div class="card card-title">
         <h2 class="text-4xl font-semibold text-center">
           {{ item.name }}
         </h2>
-        <p class="text-2xl font-bold text-center">
-          ${{ parseFloat(item.options.price).toFixed(2) }}
-        </p>
-        <p class="text-2xl text-center mb-5">{{ item.desription }}</p>
+        <div class="flex flex-row items-center justify-center">
+          <p class="text-2xl font-bold text-center">
+            ${{ parseFloat(item.options.price).toFixed(2) }}
+          </p>
+          <button
+            class="ml-5 transition duration-300 hover:bg-base-300 active:scale-90 ease-in-out rounded-full bg-accent text-white w-10 h-10 flex items-center justify-center"
+            @click="addToCart"
+          >
+            <img
+              src="../assets/add-to-cart-svgrepo-com.svg"
+              alt="plus"
+              class="w-6 h-6"
+            />
+          </button>
+        </div>
+        <p class="text-2xl text-center mb-5">{{ item.description }}</p>
 
         <div
           v-for="(options, modifier) in item.modifiers"
@@ -29,7 +42,8 @@
               type="radio"
               :name="modifier"
               class="radio"
-              v-model="item.modifiers[modifier]"
+              v-model="selectedModifiers[modifier]"
+              :value="option"
             />
             <label class="label">
               <span class="label-text ml-2">{{ option }}</span>
@@ -37,22 +51,45 @@
           </div>
         </div>
       </div>
-      <div class="card card-actions h-full justify-end"></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import data from "../assets/data.json";
 import { useRoute } from "vue-router";
+import { useGlobalStore } from "@/stores/global";
+
+const store = useGlobalStore();
 
 const route = useRoute();
 const routeName = route.params.id;
 
-console.log(routeName);
-
 const item = data.find((item) => item.name === routeName);
 
-console.log(item);
+const selectedModifiers = reactive({});
+
+for (const modifier in item.modifiers) {
+  selectedModifiers[modifier] = "";
+}
+
+const checkModifiers = () => {
+  for (const modifier in selectedModifiers) {
+    if (!selectedModifiers[modifier]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const addToCart = () => {
+  if (!checkModifiers()) {
+    alert("Please select all options.");
+    return;
+  }
+  const selectedOptions = { ...selectedModifiers };
+  store.addToCart({ ...item, selectedOptions }, 1);
+  console.log(store.cart);
+};
 </script>
