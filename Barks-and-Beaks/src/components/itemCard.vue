@@ -13,7 +13,7 @@
         />
       </div>
     </div>
-    <div class="card card-body">
+    <div class="card card-body w-full">
       <div class="card card-title">
         <h1 class="text-2xl font-semibold text-center">
           {{ item.name }}
@@ -22,7 +22,7 @@
           ${{ parseFloat(item.options.price).toFixed(2) }}
         </p>
       </div>
-      <div class="card card-actions h-full justify-end">
+      <div class="card card-actions h-full justify-end w-full">
         <button
           @click="$router.push('/' + item.name)"
           class="btn btn-primary w-full mt-3 font-bold"

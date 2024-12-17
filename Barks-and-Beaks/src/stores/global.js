@@ -15,10 +15,26 @@ export const useGlobalStore = defineStore("global", {
       }
     },
     addToCart(product, quantity) {
-      if (this.cart[product.name]) {
-        this.cart[product.name].quantity += quantity;
+      const modifiersKey = JSON.stringify(product.selectedModifiers);
+      const uniqueKey = `${product.name}-${modifiersKey}`;
+
+      if (this.cart[uniqueKey]) {
+        this.cart[uniqueKey].quantity += quantity;
       } else {
-        this.cart[product.name] = { ...product, quantity };
+        this.cart[uniqueKey] = { ...product, quantity };
+      }
+    },
+    increaseQuantity(uniqueKey, quantity = 1) {
+      if (this.cart[uniqueKey]) {
+        this.cart[uniqueKey].quantity += quantity;
+      }
+    },
+    decreaseQuantity(uniqueKey, quantity = 1) {
+      if (this.cart[uniqueKey]) {
+        this.cart[uniqueKey].quantity -= quantity;
+        if (this.cart[uniqueKey].quantity <= 0) {
+          delete this.cart[uniqueKey];
+        }
       }
     },
   },

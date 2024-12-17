@@ -3,6 +3,20 @@ export default {
   content: ["./src/App.vue", "./src/**/*.{vue,js,ts,jsx,tsx}"], // Path to your Vue files
   theme: {
     extend: {
+      keyframes: {
+        slideIn: {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        slideOut: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+      },
+      animation: {
+        slideIn: "slideIn 0.3s ease-out",
+        slideOut: "slideOut 0.3s ease-in",
+      },
       spacing: {
         // Custom spacing units to replace hardcoded pixels
         "1/4": "25%",
@@ -25,7 +39,7 @@ export default {
         lg: ["20px", "2rem"],
       },
       fontFamily: {
-        josefin: ['Josepfin Sans', 'sans-serif'],
+        josefin: ["Josepfin Sans", "sans-serif"],
       },
     },
   },
@@ -34,17 +48,17 @@ export default {
     themes: [
       {
         mytheme: {
-        primary: "#314596",
-        secondary: "#576395",
-        accent: "#94A3B8",
-        neutral: "#E5E7EB",
-        "base-100": "#F3F4F6",
-        info: "#3ABFF8",
-        success: "#36D399",
-        warning: "#FBBD23",
-        error: "#F87272",
+          primary: "#314596",
+          secondary: "#576395",
+          accent: "#94A3B8",
+          neutral: "#E5E7EB",
+          "base-100": "#F3F4F6",
+          info: "#3ABFF8",
+          success: "#36D399",
+          warning: "#FBBD23",
+          error: "#F87272",
         },
-    }
+      },
     ],
   },
 };

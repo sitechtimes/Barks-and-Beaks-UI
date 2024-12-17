@@ -1,4 +1,13 @@
 <template>
+  <div
+    class="w-full flex items-center p-14 md:p-9 bg-gradient-to-b from-[#576395] to-[#314596] flex-col md:flex-row justify-center z-0"
+  >
+    <h1
+      class="btn-primary font-bold text-4xl md:text-5xl lg:text-7xl mb-3 md:mb-0 md:mr-10"
+    >
+      Barks and Beaks
+    </h1>
+  </div>
   <div class="flex flex-col items-center mx-6">
     <div
       class="flex flex-col items-center md:flex-row p-5 gap-2 md:gap-5 w-full"
@@ -58,13 +67,49 @@
         <itemCard :items="snacks" />
       </div>
     </div>
+    <h1
+      class="text-2xl font-semibold text-center my-3"
+      v-if="totalSearchItems === 0"
+    >
+      Sorry, we couldn't find anything for "{{ search }}" :(
+    </h1>
+    <p
+      v-if="search.length === 0"
+      class="text-2xl font-semibold text-center my-3"
+    >
+      Are you an Admin?
+      <router-link to="/admin" class="underline text-primary"
+        >Click here</router-link
+      >
+      to login
+    </p>
   </div>
+
+  <transition
+    enter-active-class="animate-slideIn"
+    leave-active-class="animate-slideOut"
+  >
+    <checkout v-if="cartOpen" @close="cartOpen = false" />
+  </transition>
+  <button
+    class="fixed border-2 border-black transition duration-125 hover:bg-base-300 active:scale-90 ease-in-out bottom-1 right-1 bg-base-200 rounded-full w-10 h-10 flex items-center justify-center text-black"
+    @click="cartOpen = !cartOpen"
+  >
+    <img
+      src="../assets/checkout.svg"
+      alt="cart"
+      class="w-8 h-8"
+      v-if="!cartOpen"
+    />
+    <p class="text-2xl font-bold" v-else>X</p>
+  </button>
 </template>
 
 <script setup>
 import data from "../assets/data.json";
 import { ref, computed } from "vue";
 import itemCard from "@/components/itemCard.vue";
+import checkout from "@/components/checkout.vue";
 
 const search = ref("");
 
@@ -74,14 +119,6 @@ const drinks = computed(() =>
       item.name.toLowerCase().includes(search.value.toLowerCase())
     )
     .filter((item) => item.options.type === "Drink")
-);
-
-const featured = computed(() =>
-  data
-    .filter((item) =>
-      item.name.toLowerCase().includes(search.value.toLowerCase())
-    )
-    .filter((item) => item.options.type === "Featured")
 );
 
 const snacks = computed(() =>
@@ -98,5 +135,9 @@ const bakery = computed(() =>
     )
     .filter((item) => item.options.type === "Bakery")
 );
+
+const totalSearchItems = computed(() => {
+  return drinks.value.length + snacks.value.length + bakery.value.length;
+});
 const cartOpen = ref(false);
 </script>

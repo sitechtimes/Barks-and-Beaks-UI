@@ -1,8 +1,7 @@
 <template>
   <div
-    class="flex items-center justify-center bg-gray-100 h-full w-full sm:mt-4"
+    class="flex justify-center bg-gray-100 h-full w-full border border-base-400 border-l-base-300 border-t-base-200 border-r-base-300"
   >
-    <!-- Fix the fact that when on small devices the title gets lost-->
     <div class="card card-body">
       <div class="card card-title">
         <h2 class="text-4xl font-semibold text-center">
@@ -50,6 +49,15 @@
             </label>
           </div>
         </div>
+
+        <div class="flex flex-row justify-between mt-5">
+          <button @click="goBack" class="btn btn-secondary rounded-full p-3">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <button @click="addToCart" class="btn btn-primary rounded-full p-3">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -89,7 +97,11 @@ const addToCart = () => {
     return;
   }
   const selectedOptions = { ...selectedModifiers };
-  store.addToCart({ ...item, selectedOptions }, 1);
+  store.addToCart({ ...item, selectedModifiers: selectedOptions }, 1);
   console.log(store.cart);
+};
+
+const goBack = () => {
+  window.history.back();
 };
 </script>
