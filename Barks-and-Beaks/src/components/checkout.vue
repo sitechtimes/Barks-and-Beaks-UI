@@ -15,17 +15,6 @@
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700"
-            >Email</label
-          >
-          <input
-            type="email"
-            id="email"
-            v-model="email"
-            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
         <div
           v-for="(item, key) in global.cart"
           :key="key"
@@ -43,18 +32,20 @@
             </div>
             <div class="flex flex-row items-center w-full">
               <p class="text-lg">{{ item.quantity }}</p>
-              <button
-                @click.prevent="decreaseQuantity(key)"
-                class="ml-2 px-2 py-1 bg-gray-200 rounded"
-              >
-                -
-              </button>
-              <button
-                @click.prevent="increaseQuantity(key)"
-                class="ml-2 px-2 py-1 bg-gray-200 rounded"
-              >
-                +
-              </button>
+              <div class="flex justify-center w-full mr-28">
+                <button
+                  @click.prevent="decreaseQuantity(key)"
+                  class="px-2 py-1 bg-gray-200 rounded-full w-8 h-8"
+                >
+                  -
+                </button>
+                <button
+                  @click.prevent="increaseQuantity(key)"
+                  class="ml-2 px-2 py-1 bg-gray-200 rounded-full w-8 h-8"
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -76,14 +67,12 @@ import { useGlobalStore } from "@/stores/global";
 const global = useGlobalStore();
 
 const name = ref("");
-const email = ref("");
 const isOpen = ref(true);
 
 const handleSubmit = () => {
   // Handle form submission
   console.log("Form submitted:", {
     name: name.value,
-    email: email.value,
   });
 };
 

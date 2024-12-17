@@ -21,6 +21,7 @@
               class="w-6 h-6"
             />
           </button>
+          <p class="text-success ml-3" v-if="added">Added to cart!</p>
         </div>
         <p class="text-2xl text-center mb-5">{{ item.description }}</p>
 
@@ -48,15 +49,6 @@
               <span class="label-text ml-2">{{ option }}</span>
             </label>
           </div>
-        </div>
-
-        <div class="flex flex-row justify-between mt-5">
-          <button @click="goBack" class="btn btn-secondary rounded-full p-3">
-            <i class="fas fa-arrow-left"></i>
-          </button>
-          <button @click="addToCart" class="btn btn-primary rounded-full p-3">
-            <i class="fas fa-plus"></i>
-          </button>
         </div>
       </div>
     </div>
@@ -99,9 +91,8 @@ const addToCart = () => {
   const selectedOptions = { ...selectedModifiers };
   store.addToCart({ ...item, selectedModifiers: selectedOptions }, 1);
   console.log(store.cart);
+  added.value = true;
 };
 
-const goBack = () => {
-  window.history.back();
-};
+const added = ref(false);
 </script>
