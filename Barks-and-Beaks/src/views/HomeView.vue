@@ -36,34 +36,34 @@
       </label>
     </div>
     <div class="z-0">
-      <h1 class="text-3xl font-semibold text-center my-3 font-mono">
+      <h1 class="text-2xl font-bold text-center my-3">
         What can we get you started with?
       </h1>
       <h1
-        class="text-2xl font-semibold text-center my-3 underline mt-5 justify-center"
+        class="text-2xl font-semibold text-center my-3  mt-5 justify-center"
         v-if="drinks.length > 0"
       >
         Drinks
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-4">
+      <div class=" w-full md:grid-cols-3 gap-4">
         <itemCard :items="drinks" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3 underline mt-5"
+        class="text-2xl font-semibold text-center my-3  mt-5"
         v-if="drinks.length > 0"
       >
         Bakery
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-4">
+      <div class=" w-full md:grid-cols-3 gap-4">
         <itemCard :items="bakery" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3 underline"
+        class="text-2xl font-semibold text-center my-3 "
         v-if="snacks.length > 0"
       >
         Snacks
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-4 mt-5">
+      <div class=" w-full md:grid-cols-3 gap-4 mt-5">
         <itemCard :items="snacks" />
       </div>
     </div>
@@ -78,7 +78,7 @@
       class="text-2xl font-semibold text-center my-3"
     >
       Are you an Admin?
-      <router-link to="/admin" class="underline text-primary"
+      <router-link to="/admin" class=" text-primary"
         >Click here</router-link
       >
       to login
