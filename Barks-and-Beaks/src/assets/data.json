@@ -9,23 +9,29 @@
       "type": "Drink"
     },
     "modifiers": {
-      "Milk/Non-Dairy Options": [
-        "Black",
-        "Half & Half",
-        "Whole Milk",
-        "Skim Milk",
-        "Oat Milk"
-      ],
-      "Flavor/Sweetener": [
-        "None/Sugar Packets on Side",
-        "Vanilla",
-        "Sweetened Caramel",
-        "Hazelnut",
-        "Brown Sugar Cookie",
-        "Raspberry",
-        "Peppermint",
-        "SUGAR-FREE Toasted Marshmallow"
-      ]
+      "Milk/Non-Dairy Options": {
+        "choices": [
+          "Black",
+          "Half & Half",
+          "Whole Milk",
+          "Skim Milk",
+          "Oat Milk"
+        ],
+        "limit": 1
+      },
+      "Flavor/Sweetener": {
+        "choices": [
+          "None/Sugar Packets on Side",
+          "Vanilla",
+          "Sweetened Caramel",
+          "Hazelnut",
+          "Brown Sugar Cookie",
+          "Raspberry",
+          "Peppermint",
+          "SUGAR-FREE Toasted Marshmallow"
+        ],
+        "limit": 0
+      }
     }
   },
   {

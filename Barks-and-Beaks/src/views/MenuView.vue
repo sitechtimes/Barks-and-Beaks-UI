@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex justify-center bg-gray-100 h-full w-full border border-base-400 border-l-base-300 border-t-base-200 border-r-base-300"
-  >
+  <div class="flex justify-center bg-gray-100 h-full w-full">
     <div class="card card-body">
       <div class="card card-title">
         <h2 class="text-4xl font-semibold text-center">
@@ -21,42 +19,43 @@
               class="w-6 h-6"
             />
           </button>
+          <p class="text-success ml-3" v-if="added">Added to cart!</p>
         </div>
         <p class="text-2xl text-center mb-5">{{ item.description }}</p>
 
         <div
-          v-for="(options, modifier) in item.modifiers"
-          :key="modifier"
+          v-for="(modifier, modifierName) in item.modifiers"
+          :key="modifierName"
           class="flex flex-col items-start justify-start w-full"
         >
           <h2 class="text-2xl font-bold text-left self-start">
-            {{ modifier }}
+            {{ modifierName }}
           </h2>
           <div
             class="flex flex-row items-center justify-start w-full"
-            v-for="option in options"
+            v-for="option in modifier.choices"
             :key="option"
           >
             <input
+              v-if="modifier.limit === 1"
               type="radio"
-              :name="modifier"
+              :name="modifierName"
               class="radio"
-              v-model="selectedModifiers[modifier]"
+              v-model="selectedModifiers[modifierName]"
+              :value="option"
+            />
+            <input
+              v-else
+              type="checkbox"
+              :name="modifierName"
+              class="checkbox"
+              v-model="selectedModifiers[modifierName]"
               :value="option"
             />
             <label class="label">
               <span class="label-text ml-2">{{ option }}</span>
             </label>
           </div>
-        </div>
-
-        <div class="flex flex-row justify-between mt-5">
-          <button @click="goBack" class="btn btn-secondary rounded-full p-3">
-            <i class="fas fa-arrow-left"></i>
-          </button>
-          <button @click="addToCart" class="btn btn-primary rounded-full p-3">
-            <i class="fas fa-plus"></i>
-          </button>
         </div>
       </div>
     </div>
@@ -78,13 +77,18 @@ const item = data.find((item) => item.name === routeName);
 
 const selectedModifiers = reactive({});
 
-for (const modifier in item.modifiers) {
-  selectedModifiers[modifier] = "";
+for (const modifierName in item.modifiers) {
+  const modifier = item.modifiers[modifierName];
+  selectedModifiers[modifierName] = modifier.limit === 1 ? "" : [];
 }
 
 const checkModifiers = () => {
-  for (const modifier in selectedModifiers) {
-    if (!selectedModifiers[modifier]) {
+  for (const modifierName in selectedModifiers) {
+    const modifier = item.modifiers[modifierName];
+    if (modifier.limit === 1 && !selectedModifiers[modifierName]) {
+      return false;
+    }
+    if (modifier.limit !== 1 && selectedModifiers[modifierName].length === 0) {
       return false;
     }
   }
@@ -98,10 +102,10 @@ const addToCart = () => {
   }
   const selectedOptions = { ...selectedModifiers };
   store.addToCart({ ...item, selectedModifiers: selectedOptions }, 1);
-  console.log(store.cart);
+  store.totalPrice += parseFloat(item.options.price);
+  //console.log(store.cart);
+  added.value = true;
 };
 
-const goBack = () => {
-  window.history.back();
-};
+const added = ref(false);
 </script>
