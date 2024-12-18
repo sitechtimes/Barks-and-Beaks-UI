@@ -4,6 +4,7 @@ export const useGlobalStore = defineStore("global", {
   state: () => ({
     loggedIn: false,
     cart: {},
+    totalPrice: 0,
   }),
   actions: {
     login(username, password) {
@@ -28,8 +29,10 @@ export const useGlobalStore = defineStore("global", {
       if (this.cart[uniqueKey]) {
         this.cart[uniqueKey].quantity += quantity;
       }
+      this.totalPrice += this.cart[uniqueKey].options.price;
     },
     decreaseQuantity(uniqueKey, quantity = 1) {
+      this.totalPrice -= this.cart[uniqueKey].options.price;
       if (this.cart[uniqueKey]) {
         this.cart[uniqueKey].quantity -= quantity;
         if (this.cart[uniqueKey].quantity <= 0) {

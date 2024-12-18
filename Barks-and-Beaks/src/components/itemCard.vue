@@ -25,7 +25,7 @@
       <div class="card card-actions h-full justify-end w-full">
         <button
           @click="$router.push('/' + item.name)"
-          class="btn btn-primary w-full mt-3 font-bold"
+          class="btn btn-primary w-full p-2 mt-3 font-bold"
         >
           <span class="flex items-center flex-row w-full h-full">
             <p>Add to Cart</p>
@@ -42,7 +42,6 @@
 </template>
 
 <script setup>
-import router from "@/router";
 const props = defineProps({
   items: {
     type: Array,
