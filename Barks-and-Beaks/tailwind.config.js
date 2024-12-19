@@ -45,6 +45,7 @@ export default {
   },
   plugins: [require("daisyui")],
   daisyui: {
+    prefix: "du-",
     themes: [
       {
         mytheme: {

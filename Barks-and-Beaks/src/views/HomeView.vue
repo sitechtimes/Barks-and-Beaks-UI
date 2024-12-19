@@ -8,15 +8,15 @@
       Barks and Beaks
     </h1>
   </div>
-  <div class="flex flex-col items-center mx-6">
+  <div class="flex flex-col items-center mx-6 ">
     <div
-      class="flex flex-col items-center md:flex-row p-5 gap-2 md:gap-5 w-full"
+      class="flex flex-row items-center justify-center p-5 gap-2 md:gap-5 w-full"
     >
-      <label class="input input-bordered flex items-center gap-2 w-full md:4/5">
+      <label class="border-[#859faf]/40 border-2 rounded-md input input-bordered flex items-center gap-2 w-full md:4/5">
         <input
           id="search"
           type="text"
-          class="grow"
+          class="grow text-xl px-2 w-full bg-transparent m-2" 
           placeholder="Search"
           v-model="search"
         />
@@ -25,7 +25,7 @@
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
           fill="currentColor"
-          class="h-4 w-4 opacity-70"
+          class="h-6 w-6 opacity-70 m-2"
         >
           <path
             fill-rule="evenodd"
@@ -36,34 +36,34 @@
       </label>
     </div>
     <div class="z-0">
-      <h1 class="text-2xl font-bold text-center my-3">
+      <h1 class="text-3xl font-semibold text-center my-3">
         What can we get you started with?
       </h1>
       <h1
         class="text-2xl font-semibold text-center my-3  mt-5 justify-center"
         v-if="drinks.length > 0"
       >
-        Drinks
+        DRINKS
       </h1>
-      <div class=" w-full md:grid-cols-3 gap-4">
+      <div class="space-y-5">
         <itemCard :items="drinks" />
       </div>
       <h1
         class="text-2xl font-semibold text-center my-3  mt-5"
         v-if="drinks.length > 0"
       >
-        Bakery
+        BAKERY
       </h1>
-      <div class=" w-full md:grid-cols-3 gap-4">
+      <div class="">
         <itemCard :items="bakery" />
       </div>
       <h1
         class="text-2xl font-semibold text-center my-3 "
         v-if="snacks.length > 0"
       >
-        Snacks
+        SNACKS
       </h1>
-      <div class=" w-full md:grid-cols-3 gap-4 mt-5">
+      <div class="">
         <itemCard :items="snacks" />
       </div>
     </div>
