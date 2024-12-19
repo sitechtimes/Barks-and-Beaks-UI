@@ -40,7 +40,7 @@
         What can we get you started with?
       </h1>
       <h1
-        class="text-2xl font-semibold text-center my-3  mt-5 justify-center"
+        class="text-2xl font-semibold text-center my-3  mt-5 justify-center underline"
         v-if="drinks.length > 0"
       >
         DRINKS
@@ -49,7 +49,7 @@
         <itemCard :items="drinks" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3  mt-5"
+        class="text-2xl font-semibold text-center my-3  mt-5 underline"
         v-if="drinks.length > 0"
       >
         BAKERY
@@ -58,7 +58,7 @@
         <itemCard :items="bakery" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3 "
+        class="text-2xl font-semibold text-center my-3 underline "
         v-if="snacks.length > 0"
       >
         SNACKS
