@@ -1,8 +1,8 @@
 [
   {
     "name": "Cold-Brew Coffee",
-    "description": "A smooth and refreshing cold-brew coffee to start your day.",
-    "image": "cold_brew_coffee.jpg",
+    "description": "Cold Brewed for 48 hours using fresh-ground coffee beans, our Original Barks & Beaks blend is strong, smooth, and a great way to kick off the morning!",
+    "image": "cold-brew-coffee.jpg",
     "options": {
       "category": "Coffee",
       "price": 3.0,
@@ -36,8 +36,8 @@
   },
   {
     "name": "Iced Tea",
-    "description": "A classic iced tea brewed to perfection and served chilled.",
-    "image": "iced_tea.jpg",
+    "description": "Cold-Brewed for 8 hours, our iced tea is a great refreshing way to start your morning or get you through the day! Comes with a lemon garnish.",
+    "image": "iced-tea.jpg",
     "options": {
       "category": "Tea",
       "price": 3.0,
@@ -47,8 +47,8 @@
   },
   {
     "name": "Peppermint Dream",
-    "description": "A delightful peppermint-flavored treat to brighten your day.",
-    "image": "peppermint_dream.jpg",
+    "description": "Our signature cold brew with milk, peppermint syrup, whipped cream, and a candy cane topping.",
+    "image": "peppermint-dream.jpg",
     "options": {
       "category": "Featured",
       "price": 4.0,
@@ -58,7 +58,7 @@
   },
   {
     "name": "Cookie Butter",
-    "description": "A creamy and rich cookie butter-flavored delight.",
+    "description": "Our signature cold brew with milk, extra brown sugar cinnamon syrup, whipped cream, and a cookie crumble topping.",
     "image": "cookie_butter.jpg",
     "options": {
       "category": "Bakery",
