@@ -45,7 +45,7 @@
       >
         Drinks
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-5">
+      <div class="grid grid-cols-1 w-full md:grid-cols-3 gap-5">
         <itemCard :items="drinks" />
       </div>
       <h1
@@ -54,7 +54,7 @@
       >
         Bakery
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-5">
+      <div class="grid grid-cols-1 w-full md:grid-cols-3 gap-5">
         <itemCard :items="bakery" />
       </div>
       <h1
@@ -63,7 +63,7 @@
       >
         Snacks
       </h1>
-      <div class="grid grid-cols-2 w-full md:grid-cols-3 gap-5 mt-5">
+      <div class="grid grid-cols-1 w-full md:grid-cols-3 gap-5 mt-5">
         <itemCard :items="snacks" />
       </div>
     </div>
