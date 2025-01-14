@@ -2,18 +2,19 @@
 <!-- make a seperate card for phones or smaller screens-->
 <template>
   <div
-    class="card rounded-[5px] card-compact flex items-center justify-center bg-[#D9D9D9] p-3 h-32 md:h-40 w-full relative"
+    class="card rounded-[5px] card-compact flex items-center justify-center bg-[#D9D9D9] p-3 h-32 md:h-auto w-full relative"
     v-for="item in props.items"
     :key="item"
   >
-    <div class="flex flex-row md:flex-col w-full justify-between">
+    <div class="flex flex-row md:flex-col w-full h-full justify-between">
       <div
         class="border border-gray rounded-md h-28 md:h-40 w-1/2 md:w-full overflow-hidden"
       >
         <img
           :src="item.image"
+          g
           :alt="item.name"
-          class="h-full w-full object-cover"
+          class="h-full scale w-full object-fill md:object-cover"
         />
       </div>
       <div class="card card-body w-1/2 md:w-full flex flex-col">
@@ -37,7 +38,7 @@
     >
       <button
         @click="$router.push('/' + item.name)"
-        class="btn rounded-full w-14 h-14 flex bg-gradient-to-t from-[#86A4B6] to-[#8BC2E4]"
+        class="btn rounded-full w-14 h-14 flex bg-gradient-to-t bg-[#86A4B6] md:from-[#86A4B6] md:to-[#8BC2E4]"
         type="button"
       >
         <img
