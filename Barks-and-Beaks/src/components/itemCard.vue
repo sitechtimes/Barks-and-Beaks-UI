@@ -8,13 +8,13 @@
   >
     <div class="flex flex-row md:flex-col w-full h-full justify-between">
       <div
-        class="border border-gray rounded-md h-28 md:h-40 w-1/2 md:w-full overflow-hidden"
+        class="border border-gray rounded-md max-h-28 md:max-h-40 w-1/2 md:w-full overflow-hidden"
       >
         <img
           :src="item.image"
           g
           :alt="item.name"
-          class="h-full scale w-full object-fill md:object-cover"
+          class="max-h-4h-full w-full object-fill md:object-cover"
         />
       </div>
       <div class="card card-body w-1/2 md:w-full flex flex-col">
