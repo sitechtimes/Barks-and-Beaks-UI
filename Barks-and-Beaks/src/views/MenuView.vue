@@ -62,75 +62,102 @@
           >
         Add to Cart
           </button> -->
-          <div class="flex flex-col items-center h-fit">
-  <!-- item image -->
-  <img :src="item.image" :alt="item.name" class="w-full h-3/4 object-cover justify-start" />
+  <div class="flex flex-col items-center h-fit">
+    <!-- item image -->
+    <img
+      :src="item.image"
+      :alt="item.name"
+      class="w-full h-3/4 object-cover justify-start"
+    />
 
-  <!-- item name and price -->
-  <h2 class="text-3xl font-bold mt-4">{{ item.name }}</h2>
-  <p class="text-xl font-semibold text-center">
-    ${{ parseFloat(item.options.price).toFixed(2) }}
-  </p>
+    <!-- item name and price -->
+    <h2 class="text-3xl font-bold mt-4">{{ item.name }}</h2>
+    <p class="text-xl font-semibold text-center">
+      ${{ parseFloat(item.options.price).toFixed(2) }}
+    </p>
 
-  <!-- item description -->
-  <div class="mx-4">
-    <p class="indent-6 text-left">{{ item.description }}</p>
+    <!-- item description -->
+    <div class="mx-4">
+      <p class="indent-6 text-left">{{ item.description }}</p>
 
-    <div
-      v-for="(modifier, modifierName) in item.modifiers"
-      :key="modifierName"
-      class="du-collapse du-collapse-arrow border border-base-300 bg-base-100 rounded-box mt-4"
-    >
-      <input type="checkbox" />
-      <div class="du-collapse-title text-xl font-medium">
-        {{ modifierName }}
-      </div>
+      <div
+        v-for="(modifier, modifierName) in item.modifiers"
+        :key="modifierName"
+        class="du-collapse du-collapse-arrow border border-base-300 bg-base-100 rounded-box mt-4"
+      >
+        <input type="checkbox" />
+        <div class="du-collapse-title text-xl font-medium">
+          {{ modifierName }}
+        </div>
 
-      <div class="du-collapse-content">
-        <ul class="space-y-2">
-          <li
-            v-for="option in modifier.choices"
-            :key="option"
-            class="flex items-center hover:bg-[#859faf]/40 rounded-md transition-all duration-300 py-2"
-          >
-            <input
-              v-if="modifier.limit === 1"
-              type="radio"
-              :name="modifierName"
-              class=""
-              v-model="selectedModifiers[modifierName]"
-              :value="option"
-            />
-            <input
-              v-else
-              type="checkbox"
-              :name="modifierName"
-              class=""
-              v-model="selectedModifiers[modifierName]"
-              :value="option"
-            />
-      <label
-              class="label cursor-pointer ml-2 w-full p-2 flex items-center justify-between rounded-md"
-              @click="toggleSelection(modifierName, option, modifier.limit)"
+        <div class="du-collapse-content">
+          <ul class="space-y-2">
+            <li
+              v-for="option in modifier.choices"
+              :key="option"
+              class="flex items-center hover:bg-[#859faf]/40 rounded-md transition-all duration-300 py-2"
             >
-              <span class="label-text">{{ option }}</span>
-            </label>
-          </li>
-        </ul>
+              <input
+                v-if="modifier.limit === 1"
+                type="radio"
+                :name="modifierName"
+                class=""
+                v-model="selectedModifiers[modifierName]"
+                :value="option"
+              />
+              <input
+                v-else
+                type="checkbox"
+                :name="modifierName"
+                class=""
+                v-model="selectedModifiers[modifierName]"
+                :value="option"
+              />
+              <label
+                class="label cursor-pointer ml-2 w-full p-2 flex items-center justify-between rounded-md"
+                @click="
+                  modifier.limit === 1
+                    ? (selectedModifiers[modifierName] = option)
+                    : selectedModifiers[modifierName].includes(option)
+                    ? (selectedModifiers[modifierName] = selectedModifiers[
+                        modifierName
+                      ].filter((selectedOption) => selectedOption !== option))
+                    : (selectedModifiers[modifierName] = [
+                        ...selectedModifiers[modifierName],
+                        option,
+                      ])
+                "
+              >
+                <span class="label-text">{{ option }}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
+
+    <div class="mt-4 w-full" v-if="item.modifiers">
+      <h3 class="text-2xl font-bold underline">Order</h3>
+      <ul class="list-disc list-inside">
+        <li
+          v-for="(options, modifierName) in selectedModifiers"
+          :key="modifierName"
+        >
+          <strong>{{ modifierName }}:</strong>
+          <span v-if="Array.isArray(options)">{{ options.join(", ") }}</span>
+          <span v-else>{{ options }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      class="bg-[#859faf]/40 h-fit w-full rounded-md p-2d"
+      @click="addToCart"
+    >
+      Add to Cart
+    </button>
   </div>
-
-  <button
-    class="bg-[#859faf]/40 h-fit w-full rounded-md p-2d"
-    @click="addToCart"
-  >
-    Add to Cart
-  </button>
-</div>
-
 </template>
-
 
 <script setup>
 import { ref, reactive } from "vue";
@@ -164,8 +191,6 @@ const checkModifiers = () => {
   }
   return true;
 };
-
-
 
 const addToCart = () => {
   if (!checkModifiers()) {
