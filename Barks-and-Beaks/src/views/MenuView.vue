@@ -135,27 +135,28 @@
         </div>
       </div>
     </div>
+    <div class="flex flex-row items-start p-4 w-full">
+      <div class="w-1/2" v-if="item.modifiers">
+        <h3 class="text-2xl font-bold underline">Order</h3>
+        <ul class="list-disc list-inside">
+          <li
+            v-for="(options, modifierName) in selectedModifiers"
+            :key="modifierName"
+          >
+            <strong>{{ modifierName }}:</strong>
+            <span v-if="Array.isArray(options)">{{ options.join(", ") }}</span>
+            <span v-else>{{ options }}</span>
+          </li>
+        </ul>
+      </div>
 
-    <div class="mt-4 w-full" v-if="item.modifiers">
-      <h3 class="text-2xl font-bold underline">Order</h3>
-      <ul class="list-disc list-inside">
-        <li
-          v-for="(options, modifierName) in selectedModifiers"
-          :key="modifierName"
-        >
-          <strong>{{ modifierName }}:</strong>
-          <span v-if="Array.isArray(options)">{{ options.join(", ") }}</span>
-          <span v-else>{{ options }}</span>
-        </li>
-      </ul>
+      <button
+        class="bg-[#859faf]/40 h-fit w-1/2 rounded-md p-2 m-2"
+        @click="addToCart"
+      >
+        Add to Cart
+      </button>
     </div>
-
-    <button
-      class="bg-[#859faf]/40 h-fit w-full rounded-md p-2d"
-      @click="addToCart"
-    >
-      Add to Cart
-    </button>
   </div>
 </template>
 

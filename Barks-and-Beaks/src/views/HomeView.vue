@@ -3,20 +3,22 @@
     class="w-full flex items-center p-14 md:p-9 bg-gradient-to-b from-[#576395] to-[#314596] flex-col md:flex-row justify-center z-0"
   >
     <h1
-      class="btn-primary font-bold text-4xl md:text-5xl lg:text-7xl mb-3 md:mb-0 md:mr-10"
+      class="btn-primary font-bold text-4xl md:text-5xl lg:text-7xl mb-3 md:mb-0 md:mr-10 text-black"
     >
       Barks and Beaks
     </h1>
   </div>
-  <div class="flex flex-col items-center mx-6 ">
+  <div class="flex flex-col items-center mx-6">
     <div
       class="flex flex-row items-center justify-center p-5 gap-2 md:gap-5 w-full"
     >
-      <label class="border-[#859faf]/40 border-2 rounded-md input input-bordered flex items-center gap-2 w-full md:4/5">
+      <label
+        class="border-[#859faf]/40 border-2 rounded-md input input-bordered flex items-center gap-2 w-full md:4/5"
+      >
         <input
           id="search"
           type="text"
-          class="grow text-xl px-2 w-full bg-transparent m-2" 
+          class="grow text-xl px-2 w-full bg-transparent m-2"
           placeholder="Search"
           v-model="search"
         />
@@ -40,7 +42,7 @@
         What can we get you started with?
       </h1>
       <h1
-        class="text-2xl font-semibold text-center my-3  mt-5 justify-center underline"
+        class="text-2xl font-semibold text-center my-3 mt-5 justify-center underline"
         v-if="drinks.length > 0"
       >
         DRINKS
@@ -49,7 +51,7 @@
         <itemCard :items="drinks" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3  mt-5 underline"
+        class="text-2xl font-semibold text-center my-3 mt-5 underline"
         v-if="drinks.length > 0"
       >
         BAKERY
@@ -58,7 +60,7 @@
         <itemCard :items="bakery" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3 underline "
+        class="text-2xl font-semibold text-center my-3 underline"
         v-if="snacks.length > 0"
       >
         SNACKS
@@ -71,16 +73,14 @@
       class="text-2xl font-semibold text-center my-3"
       v-if="totalSearchItems === 0"
     >
-      Sorry, we couldn't find anything for "{{ search }}" :(
+      Sorry, we couldn't find anything for "{{ search }}" :
     </h1>
     <p
       v-if="search.length === 0"
       class="text-2xl font-semibold text-center my-3"
     >
       Are you an Admin?
-      <router-link to="/admin" class=" text-primary"
-        >Click here</router-link
-      >
+      <router-link to="/admin" class="text-primary">Click here</router-link>
       to login
     </p>
   </div>
