@@ -135,8 +135,11 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-row items-start p-4 w-full">
-      <div class="w-1/2" v-if="item.modifiers">
+    <div class="flex flex-col gap-3 items-start p-4 w-full">
+      <div
+        class="w-full text-wrap"
+        v-if="Object.keys(item.modifiers).length > 0"
+      >
         <h3 class="text-2xl font-bold underline">Order</h3>
         <ul class="list-disc list-inside">
           <li
@@ -151,7 +154,7 @@
       </div>
 
       <button
-        class="bg-[#859faf]/40 h-fit w-1/2 rounded-md p-2 m-2"
+        class="bg-[#859faf]/40 du-btn h-fit w-full rounded-md"
         @click="addToCart"
       >
         Add to Cart
