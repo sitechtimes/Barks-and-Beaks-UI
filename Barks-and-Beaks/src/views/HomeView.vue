@@ -84,18 +84,23 @@
       to login
     </p>
   </div>
+  <!--
   <button
     class="fixed border-2 border-black transition-all duration-125 hover:bg-base-300 active:scale-90 ease-in-out bottom-3 right-3 bg-base-200 rounded-full w-10 h-10 flex items-center justify-center text-black"
     @click="cartOpen = true"
   >
     <img src="../assets/checkout.svg" alt="cart" class="w-8 h-8" />
   </button>
+  -->
   <transition
     enter-active-class="animate-slideIn"
     leave-active-class="animate-slideOut"
   >
     <checkout v-if="cartOpen" @close="cartOpen = false" />
   </transition>
+  <div class="w-full fixed bottom-0 h-14 bg-[#A2BECE]" @click="cartOpen = true">
+    <h1 class="text-xl font-bold">YOUR ORDER</h1>
+  </div>
 </template>
 
 <script setup>
