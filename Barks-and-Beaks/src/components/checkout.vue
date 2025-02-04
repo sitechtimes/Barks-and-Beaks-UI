@@ -4,6 +4,7 @@
     @touchstart="handleTouchStart"
     @touchmove="handleTouchMove"
     @touchend="handleTouchEnd"
+    @click="closeCheckout"
   >
     <div
       class="flex flex-col overflow-scroll checkout-container p-4 bg-white shadow-md w-full z-50 h-full"

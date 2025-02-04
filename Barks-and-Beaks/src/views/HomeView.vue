@@ -98,9 +98,26 @@
   >
     <checkout v-if="cartOpen" @close="cartOpen = false" />
   </transition>
-  <div class="w-full fixed bottom-0 h-14 bg-[#A2BECE]" @click="cartOpen = true">
-    <h1 class="text-xl font-bold">YOUR ORDER</h1>
-  </div>
+  <transition
+    enter-active-class="animate-slideIn"
+    leave-active-class="animate-slideOut"
+  >
+    <div
+      class="w-full fixed bottom-0 h-14 bg-[#A2BECE] rounded-t-lg flex justify-between md:justify-start md:gap-3 pr-5 pl-5 items-center z-50"
+      @touchstart="handleTouchStart"
+      @touchmove="handleTouchMove"
+      @touchend="handleTouchEnd"
+      @click="cartOpen = true"
+      v-if="!cartOpen"
+    >
+      <h1 class="text-xl font-bold">YOUR ORDER</h1>
+      <button
+        class="rounded-full w-10 h-10 flex items-center justify-center text-black"
+      >
+        <img src="../assets/checkout.svg" alt="cart" class="w-8 h-8" />
+      </button>
+    </div>
+  </transition>
 </template>
 
 <script setup>
@@ -138,4 +155,22 @@ const totalSearchItems = computed(() => {
   return drinks.value.length + snacks.value.length + bakery.value.length;
 });
 const cartOpen = ref(false);
+
+let startY = 0;
+const handleTouchStart = (event) => {
+  startY = event.touches[0].clientY;
+};
+
+const handleTouchMove = (event) => {
+  const currentY = event.touches[0].clientY;
+  const diffY = currentY - startY;
+
+  if (diffY < -25 && startY && window.innerHeight - currentY < 100) {
+    cartOpen.value = true;
+  }
+};
+
+const handleTouchEnd = () => {
+  startY = 0;
+};
 </script>
