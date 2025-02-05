@@ -12,10 +12,20 @@ export default {
           "0%": { transform: "translateY(0)" },
           "100%": { transform: "translateY(100%)" },
         },
+        expandFromCenter: {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
+        contractToCenter: {
+          "0%": { transform: "scaleX(1)" },
+          "100%": { transform: "scaleX(0)" },
+        },
       },
       animation: {
         slideIn: "slideIn 0.3s ease-out",
         slideOut: "slideOut 0.3s ease-in",
+        expandFromCenter: "expandFromCenter 0.20s ease-in-out",
+        contractToCenter: "contractToCenter 0.15s ease-in",
       },
       spacing: {
         // Custom spacing units to replace hardcoded pixels

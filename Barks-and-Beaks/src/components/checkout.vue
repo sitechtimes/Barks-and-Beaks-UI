@@ -4,12 +4,14 @@
     @touchstart="handleTouchStart"
     @touchmove="handleTouchMove"
     @touchend="handleTouchEnd"
-    @click="closeCheckout"
   >
     <div
       class="flex flex-col overflow-scroll checkout-container p-4 bg-white shadow-md w-full z-50 h-full"
     >
-      <div class="flex flex-row justify-between text-center items-center mb-4">
+      <div
+        class="flex flex-row justify-between text-center items-center mb-4"
+        @click.self="closeCheckout"
+      >
         <h1 class="text-2xl font-bold">Checkout</h1>
         <button
           class="border-2 border-black transition-all duration-125 hover:bg-base-300 active:scale-90 ease-in-out bg-base-200 rounded-full w-10 h-10 flex items-center justify-center text-black"

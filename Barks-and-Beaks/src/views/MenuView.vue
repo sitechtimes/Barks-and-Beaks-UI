@@ -14,7 +14,6 @@
           <p class="text-2xl font-bold text-center">
             ${{ parseFloat(item.options.price).toFixed(2) }}
           </p>
-          <p class="text-success ml-3" v-if="added">Added to cart!</p>
         </div>
         <p class="text-2xl text-center mb-5">{{ item.description }}</p>
 
@@ -154,12 +153,23 @@
       </div>
 
       <button
-        class="bg-[#859faf]/40 du-btn h-fit w-full rounded-md"
+        class="bg-[#859faf]/40 du-btn h-fit w-full rounded-md transition-all duration-300 hover:bg-[#859faf]/60 active:scale-80 ease-in-out"
         @click="addToCart"
       >
         Add to Cart
       </button>
     </div>
+    <transition
+      enter-active-class="animate-expandFromCenter"
+      leave-active-class="animate-contractToCenter"
+    >
+      <div
+        v-if="added"
+        class="fixed flex flex-row top-3 bg-white p-2 rounded-lg"
+      >
+        <p class="text-success font-bold" v-if="added">Added to cart!</p>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -206,6 +216,9 @@ const addToCart = () => {
   store.totalPrice += parseFloat(item.options.price);
   console.log(store.cart);
   added.value = true;
+  setTimeout(() => {
+    added.value = false;
+  }, 2000);
 };
 
 const added = ref(false);
