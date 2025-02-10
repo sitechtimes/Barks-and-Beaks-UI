@@ -77,7 +77,7 @@
     </h1>
     <p
       v-if="search.length === 0"
-      class="text-2xl font-semibold text-center my-3"
+      class="text-2xl font-semibold text-center mt-3 mb-16"
     >
       Are you an Admin?
       <router-link to="/admin" class="text-primary">Click here</router-link>

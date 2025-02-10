@@ -1,45 +1,41 @@
 <template>
-  <div
-    class="card flex items-center justify-center p-3 border-b-4 border-primary h-max min-h-80 w-full"
-  >
-    <h1 class="card card-title text-4xl font-bold">Login</h1>
-    <div class="card card-body">
-      <form class="form-control">
-        <label class="label">
-          <span class="label-text">Username</span>
-        </label>
+  <div class="card w-full max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-bold mb-4 text-center">Login</h1>
+    <form class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Username</label>
         <input
           v-model="username"
           type="text"
           placeholder="username"
-          class="input input-bordered"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         />
-        <label class="label">
-          <span class="label-text">Password</span>
-        </label>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Password</label>
         <input
           v-model="password"
           type="password"
           placeholder="password"
-          class="input input-bordered"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         />
-        <div class="w-full">
-          <button
-            type="submit"
-            class="btn btn-primary w-full mt-3"
-            @click.prevent="attemptLogin"
-          >
-            Login
-          </button>
-        </div>
-        <div
-          v-if="loginSuccessful === false"
-          class="mt-3 text-center text-error font-semibold"
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          @click.prevent="attemptLogin"
         >
-          Invalid username or password
-        </div>
-      </form>
-    </div>
+          Login
+        </button>
+      </div>
+      <div
+        v-if="loginSuccessful === false"
+        class="mt-3 text-center text-red-600 font-semibold"
+      >
+        Invalid username or password
+      </div>
+    </form>
   </div>
 </template>
 

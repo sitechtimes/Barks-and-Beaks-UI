@@ -1,13 +1,71 @@
 <template>
-  <div class="p-2">
-    <loginCard v-if="!store.loggedIn" class="" />
-    <div v-if="store.loggedIn">
-      <h1 class="text-4xl font-bold">Admin</h1>
+  <div class="p-4 h-full w-full flex flex-col justify-center items-center">
+    <login-card v-if="!store.loggedIn" class="mb-4" />
+    <div v-else class="w-full max-w-4xl overflow-auto">
+      <h2 class="text-2xl font-bold mb-4">Orders</h2>
+      <table class="min-w-full bg-white shadow-md rounded-lg">
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b">Customer</th>
+            <th class="py-2 px-4 border-b">Order Name</th>
+            <th class="py-2 px-4 border-b">Modifiers</th>
+            <th class="py-2 px-4 border-b">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="order in orders" :key="order.id" class="hover:bg-gray-100">
+            <td class="py-2 px-4 border-b">{{ order.customerName }}</td>
+            <td class="py-2 px-4 border-b">{{ order.orderName }}</td>
+            <td class="py-2 px-4 border-b">{{ order.modifiers }}</td>
+            <td class="py-2 px-4 border-b">{{ order.total }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
+
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+
+const orders = ref([]);
+
+onMounted(async () => {
+  // This is where you will call your API to fetch orders
+  // For now, we'll use mock data
+  orders.value = [
+    {
+      id: 1,
+      customerName: "John Doe",
+      orderName: "Pizza",
+      modifiers: "Extra cheese",
+      total: 100,
+    },
+    {
+      id: 2,
+      customerName: "Jane Smith",
+      orderName: "Burger",
+      modifiers: "No onions",
+      total: 150,
+    },
+    {
+      id: 3,
+      customerName: "Bob Johnson",
+      orderName: "Pasta",
+      modifiers: "Gluten-free",
+      total: 200,
+    },
+  ];
+  for (let i = 4; i <= 40; i++) {
+    orders.value.push({
+      id: i,
+      customerName: `Customer ${i}`,
+      orderName: `Order ${i}`,
+      modifiers: `Modifier ${i}`,
+      total: Math.floor(Math.random() * 300) + 50,
+    });
+  }
+});
 import { useGlobalStore } from "@/stores/global";
 import loginCard from "@/components/loginCard.vue";
 
