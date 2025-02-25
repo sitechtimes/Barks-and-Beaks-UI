@@ -2,7 +2,6 @@
   <div class="p-4 h-full w-full flex flex-col justify-center items-center">
     <login-card v-if="!store.loggedIn" class="mb-4" />
     <div v-else class="w-full max-w-4xl overflow-auto">
-      <h2 class="text-2xl font-bold mb-4">Orders</h2>
       <table class="min-w-full bg-white shadow-md rounded-lg">
         <thead>
           <tr>
@@ -27,10 +26,24 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-
+import { createClient } from "@supabase/supabase-js";
+import supabaseJson from "../../supabase.json";
 const orders = ref([]);
+const supabaseUrl = "https://jmfmzgmmnspbazrstjxm.supabase.co";
+const supabaseAnonKey = supabaseJson.supabase;
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const fetchOrders = async () => {
+  const { data, error } = await supabase.from("CurrentOrders").select("*");
+
+  if (error) {
+    console.error("Error fetching orders:", error);
+  } else {
+    orders.value = data;
+  }
+};
 
 onMounted(async () => {
+  fetchOrders();
   // This is where you will call your API to fetch orders
   // For now, we'll use mock data
   orders.value = [
