@@ -34,3 +34,5 @@ yarn.lock
 
 # Ignore Supabase API key files
 supabase.json
+
+.env

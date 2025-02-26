@@ -26,58 +26,52 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { createClient } from "@supabase/supabase-js";
-import supabaseJson from "../../supabase.json";
 const orders = ref([]);
-const supabaseUrl = "https://jmfmzgmmnspbazrstjxm.supabase.co";
-const supabaseAnonKey = supabaseJson.supabase;
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-const fetchOrders = async () => {
-  const { data, error } = await supabase.from("CurrentOrders").select("*");
 
-  if (error) {
-    console.error("Error fetching orders:", error);
-  } else {
-    orders.value = data;
-  }
-};
+import { supabase } from "../../utils/supabase";
+const todos = ref([]);
+
+async function getTodos() {
+  const { data } = await supabase.from("todos").select();
+  todos.value = data;
+}
 
 onMounted(async () => {
-  fetchOrders();
+  await fetchOrders();
   // This is where you will call your API to fetch orders
   // For now, we'll use mock data
-  orders.value = [
-    {
-      id: 1,
-      customerName: "John Doe",
-      orderName: "Pizza",
-      modifiers: "Extra cheese",
-      total: 100,
-    },
-    {
-      id: 2,
-      customerName: "Jane Smith",
-      orderName: "Burger",
-      modifiers: "No onions",
-      total: 150,
-    },
-    {
-      id: 3,
-      customerName: "Bob Johnson",
-      orderName: "Pasta",
-      modifiers: "Gluten-free",
-      total: 200,
-    },
-  ];
-  for (let i = 4; i <= 40; i++) {
-    orders.value.push({
-      id: i,
-      customerName: `Customer ${i}`,
-      orderName: `Order ${i}`,
-      modifiers: `Modifier ${i}`,
-      total: Math.floor(Math.random() * 300) + 50,
-    });
-  }
+  //orders.value = [
+  //  {
+  //    id: 1,
+  //    customerName: "John Doe",
+  //    orderName: "Pizza",
+  //    modifiers: "Extra cheese",
+  //    total: 100,
+  //  },
+  //  {
+  //    id: 2,
+  //    customerName: "Jane Smith",
+  //    orderName: "Burger",
+  //    modifiers: "No onions",
+  //    total: 150,
+  //  },
+  //  {
+  //    id: 3,
+  //    customerName: "Bob Johnson",
+  //    orderName: "Pasta",
+  //    modifiers: "Gluten-free",
+  //    total: 200,
+  //  },
+  //];
+  //for (let i = 4; i <= 40; i++) {
+  //  orders.value.push({
+  //    id: i,
+  //    customerName: `Customer ${i}`,
+  //    orderName: `Order ${i}`,
+  //    modifiers: `Modifier ${i}`,
+  //    total: Math.floor(Math.random() * 300) + 50,
+  //  });
+  //}
 });
 import { useGlobalStore } from "@/stores/global";
 import loginCard from "@/components/loginCard.vue";
