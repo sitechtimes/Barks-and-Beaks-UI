@@ -27,17 +27,32 @@
 <script setup>
 import { ref, onMounted } from "vue";
 const orders = ref([]);
+import { createClient } from "@supabase/supabase-js";
+import supabaseinfo from "../../utils/supabase.json";
+const SUPABASE_URL = supabaseinfo.url;
+const SUPABASE_ANON_KEY = supabaseinfo.key;
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+//const handleInserts = (payload) => {
+//  console.log("Change received!", payload);
+//};
+//supabase
+//  .channel("schema-db-changes")
+//  .on(
+//    "postgres_changes",
+//    {
+//      schema: "public",
+//      event: "*", // Listen to all changes
+//    },
+//    (payload) => console.log(payload)
+//  )
 
-import { supabase } from "../../utils/supabase";
-const todos = ref([]);
-
-async function getTodos() {
-  const { data } = await supabase.from("todos").select();
-  todos.value = data;
-}
+//  .subscribe();
+let { data: CurrentOrders, error } = await supabase
+  .from("CurrentOrders")
+  .select("*");
+console.log(CurrentOrders);
 
 onMounted(async () => {
-  await fetchOrders();
   // This is where you will call your API to fetch orders
   // For now, we'll use mock data
   //orders.value = [
