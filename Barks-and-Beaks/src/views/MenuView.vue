@@ -214,7 +214,7 @@ const addToCart = () => {
   const selectedOptions = { ...selectedModifiers };
   store.addToCart({ ...item, selectedModifiers: selectedOptions }, 1);
   store.totalPrice += parseFloat(item.options.price);
-  console.log(store.cart);
+  //console.log(store.cart);
   added.value = true;
   setTimeout(() => {
     added.value = false;

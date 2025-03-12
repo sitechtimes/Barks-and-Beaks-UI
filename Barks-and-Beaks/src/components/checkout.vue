@@ -112,6 +112,7 @@ const handleSubmit = () => {
     alert("Your cart is empty.");
     return;
   }
+  global.placeOrder(name.value, global.cart, global.totalPrice);
 };
 
 const decreaseQuantity = (key) => {

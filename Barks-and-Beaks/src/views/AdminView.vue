@@ -6,17 +6,27 @@
         <thead>
           <tr>
             <th class="py-2 px-4 border-b">Customer</th>
-            <th class="py-2 px-4 border-b">Order Name</th>
+            <th class="py-2 px-4 border-b">Order</th>
             <th class="py-2 px-4 border-b">Modifiers</th>
             <th class="py-2 px-4 border-b">Total</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="order in orders" :key="order.id" class="hover:bg-gray-100">
-            <td class="py-2 px-4 border-b">{{ order.customerName }}</td>
-            <td class="py-2 px-4 border-b">{{ order.orderName }}</td>
-            <td class="py-2 px-4 border-b">{{ order.modifiers }}</td>
-            <td class="py-2 px-4 border-b">{{ order.total }}</td>
+            <td class="py-2 px-4 border-b">{{ order.name }}</td>
+            <td class="py-2 px-4 border-b">
+              <div v-for="item in order.items" :key="item">
+                <div v-for="(value, key) in item" :key="key">
+                  {{ key }}: {{ value }}
+                </div>
+              </div>
+            </td>
+            <td class="py-2 px-4 border-b">
+              <div v-for="item in order.modifiers" :key="item">
+                {{ item }}
+              </div>
+            </td>
+            <td class="py-2 px-4 border-b">${{ order.price }}</td>
           </tr>
         </tbody>
       </table>
@@ -25,71 +35,39 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-const orders = ref([]);
-import { createClient } from "@supabase/supabase-js";
-import supabaseinfo from "../../utils/supabase.json";
-const SUPABASE_URL = supabaseinfo.url;
-const SUPABASE_ANON_KEY = supabaseinfo.key;
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-//const handleInserts = (payload) => {
-//  console.log("Change received!", payload);
-//};
-//supabase
-//  .channel("schema-db-changes")
-//  .on(
-//    "postgres_changes",
-//    {
-//      schema: "public",
-//      event: "*", // Listen to all changes
-//    },
-//    (payload) => console.log(payload)
-//  )
+import { ref, onMounted, computed } from "vue";
 
-//  .subscribe();
-let { data: CurrentOrders, error } = await supabase
-  .from("CurrentOrders")
-  .select("*");
-console.log(CurrentOrders);
-
-onMounted(async () => {
-  // This is where you will call your API to fetch orders
-  // For now, we'll use mock data
-  //orders.value = [
-  //  {
-  //    id: 1,
-  //    customerName: "John Doe",
-  //    orderName: "Pizza",
-  //    modifiers: "Extra cheese",
-  //    total: 100,
-  //  },
-  //  {
-  //    id: 2,
-  //    customerName: "Jane Smith",
-  //    orderName: "Burger",
-  //    modifiers: "No onions",
-  //    total: 150,
-  //  },
-  //  {
-  //    id: 3,
-  //    customerName: "Bob Johnson",
-  //    orderName: "Pasta",
-  //    modifiers: "Gluten-free",
-  //    total: 200,
-  //  },
-  //];
-  //for (let i = 4; i <= 40; i++) {
-  //  orders.value.push({
-  //    id: i,
-  //    customerName: `Customer ${i}`,
-  //    orderName: `Order ${i}`,
-  //    modifiers: `Modifier ${i}`,
-  //    total: Math.floor(Math.random() * 300) + 50,
-  //  });
-  //}
-});
 import { useGlobalStore } from "@/stores/global";
 import loginCard from "@/components/loginCard.vue";
 
 const store = useGlobalStore();
+
+onMounted(async () => {
+  store.loadOrders();
+});
+
+const orders = computed(() => store.orders);
+
+function placeOrder() {
+  const orderDetails = orders.value.map((order) => {
+    return {
+      name: order.name,
+      items: order.items.map((item) => {
+        return {
+          name: item.name,
+          description: item.description,
+          image: item.image,
+          options: item.options,
+          quantity: item.quantity,
+          selectedModifiers: item.selectedModifiers,
+        };
+      }),
+      modifiers: order.modifiers,
+      price: order.price,
+    };
+  });
+
+  // Assuming you have a function to send the order details to the server
+  store.submitOrder(orderDetails);
+}
 </script>
