@@ -28,10 +28,76 @@
           <input
             type="text"
             id="name"
-            v-model="name"
+            v-model="global.name"
             required
             class="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
+        </div>
+        <div class="mb-4">
+          <h3 class="text-md font-semibold">Pickup or Delivery</h3>
+          <div class="flex space-x-4 mt-2">
+            <button
+              type="button"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-all w-1/2"
+              :class="
+                global.pickupOption === 'Pickup'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200'
+              "
+              @click="global.pickupOption = 'Pickup'"
+            >
+              Pickup
+            </button>
+            <button
+              type="button"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-all w-1/2"
+              :class="
+                global.pickupOption === 'Delivery'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200'
+              "
+              @click="global.pickupOption = 'Delivery'"
+            >
+              Delivery
+            </button>
+          </div>
+          <input
+            v-if="global.pickupOption === 'Delivery'"
+            type="text"
+            v-model="global.roomNumber"
+            placeholder="Enter your room number"
+            class="w-full mt-2 p-2 border border-gray-300 rounded-lg text-sm"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="note" class="block text-sm font-medium text-gray-700"
+            >Note</label
+          >
+          <textarea
+            id="note"
+            v-model="global.note"
+            placeholder="Add a note for your order"
+            class="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          ></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="readyTime" class="block text-sm font-medium text-gray-700"
+            >When will the order be ready?</label
+          >
+          <select
+            id="readyTime"
+            v-model="global.readyTime"
+            class="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="When ready">When ready</option>
+            <option value="Tomorrow 08:00">Tomorrow 08:00</option>
+            <option value="Tomorrow 08:15">Tomorrow 08:15</option>
+            <option value="Tomorrow 08:30">Tomorrow 08:30</option>
+            <option value="Tomorrow 08:45">Tomorrow 08:45</option>
+            <option value="Tomorrow 09:00">Tomorrow 09:00</option>
+            <option value="Tomorrow 09:15">Tomorrow 09:15</option>
+            <option value="Tomorrow 09:30">Tomorrow 09:30</option>
+          </select>
         </div>
         <div
           v-for="(item, key) in global.cart"
@@ -86,12 +152,21 @@
           <h2 class="text-lg font-semibold">Total</h2>
           <p class="text-lg font-semibold">{{ global.totalPrice }}$</p>
         </div>
-        <button
-          type="submit"
-          class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
-        >
-          Place Order
-        </button>
+        <div class="flex justify-between gap-3 items-center mb-4">
+          <button
+            type="submit"
+            class="w-4/5 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+          >
+            Place Order
+          </button>
+          <button
+            type="button"
+            class="w-1/5 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700"
+            @click="clearCart"
+          >
+            Clear
+          </button>
+        </div>
       </form>
     </div>
   </div>
@@ -105,14 +180,35 @@ const emit = defineEmits(["close"]);
 
 const global = useGlobalStore();
 
-const name = ref("");
-
 const handleSubmit = () => {
   if (Object.keys(global.cart).length === 0) {
     alert("Your cart is empty.");
     return;
   }
-  global.placeOrder(name.value, global.cart, global.totalPrice);
+  if (global.pickupOption === "Delivery" && !global.roomNumber) {
+    alert("Please enter a room number for delivery.");
+    return;
+  }
+  let order = global.placeOrder(
+    global.name,
+    global.cart,
+    global.totalPrice,
+    global.note,
+    global.pickupOption,
+    global.roomNumber,
+    global.readyTime
+  );
+  if (!order) {
+    alert("Something went wrong. Please try again.");
+    return;
+  } else {
+    alert(`Order placed for ${global.name}.`);
+    global.clearCart();
+  }
+};
+
+const clearCart = () => {
+  global.clearCart();
 };
 
 const decreaseQuantity = (key) => {

@@ -68,6 +68,15 @@
       <div class="">
         <itemCard :items="snacks" />
       </div>
+      <h1
+        class="text-2xl font-semibold text-center my-3 mt-5 underline"
+        v-if="breakfast.length > 0"
+      >
+        BREAKFAST
+      </h1>
+      <div class="">
+        <itemCard :items="breakfast" />
+      </div>
     </div>
     <h1
       class="text-2xl font-semibold text-center my-3"
@@ -151,8 +160,21 @@ const bakery = computed(() =>
     .filter((item) => item.options.type === "Bakery")
 );
 
+const breakfast = computed(() =>
+  data
+    .filter((item) =>
+      item.name.toLowerCase().includes(search.value.toLowerCase())
+    )
+    .filter((item) => item.options.category === "Breakfast")
+);
+
 const totalSearchItems = computed(() => {
-  return drinks.value.length + snacks.value.length + bakery.value.length;
+  return (
+    drinks.value.length +
+    snacks.value.length +
+    bakery.value.length +
+    breakfast.value.length
+  );
 });
 const cartOpen = ref(false);
 

@@ -46,42 +46,25 @@
     "modifiers": {}
   },
   {
-    "name": "Peppermint Dream",
-    "description": "Our signature cold brew with milk, peppermint syrup, whipped cream, and a candy cane topping.",
-    "image": "peppermint-dream.jpg",
+    "name": "Iced Matcha Latte",
+    "description": "Organic Matcha Powder mixed into whole milk.",
+    "image": "iced-matcha-latte.jpg",
     "options": {
       "category": "Featured",
       "price": 4.0,
       "type": "Drink"
     },
-    "modifiers": {}
-  },
-  {
-    "name": "Cookie Butter",
-    "description": "Our signature cold brew with milk, extra brown sugar cinnamon syrup, whipped cream, and a cookie crumble topping.",
-    "image": "cookie_butter.jpg",
-    "options": {
-      "category": "Bakery",
-      "price": 4.0,
-      "type": "Snack"
-    },
-    "modifiers": {}
+    "modifiers": {
+      "Sweetener": {
+        "choices": ["Unsweetened", "Vanilla"],
+        "limit": 1
+      }
+    }
   },
   {
     "name": "Belgian Waffle",
     "description": "A soft and fluffy Belgian waffle, perfect for breakfast or a snack.",
     "image": "belgian_waffle.jpg",
-    "options": {
-      "category": "Bakery",
-      "price": 2.0,
-      "type": "Bakery"
-    },
-    "modifiers": {}
-  },
-  {
-    "name": "Churro Bites",
-    "description": "Mini churro bites dusted with cinnamon sugar, a perfect sweet treat.",
-    "image": "churro_bites.jpg",
     "options": {
       "category": "Bakery",
       "price": 2.0,
@@ -101,35 +84,24 @@
     "modifiers": {}
   },
   {
-    "name": "Breakfast Snack Pack",
-    "description": "A convenient breakfast pack with a mix of your favorite morning snacks.",
-    "image": "breakfast_snack_pack.jpg",
+    "name": "BEC Quesadilla",
+    "description": "A delicious quesadilla filled with bacon, egg, and cheese. Perfect for breakfast or any time of the day.",
+    "image": "bec-quesadilla.jpg",
     "options": {
-      "category": "Bakery",
+      "category": "Breakfast",
       "price": 5.0,
-      "type": "Snack"
+      "type": "Breakfast"
     },
     "modifiers": {}
   },
   {
-    "name": "Fruit Cup",
-    "description": "A fresh and healthy mix of seasonal fruits.",
-    "image": "fruit_cup.jpg",
+    "name": "BEC English Muffin",
+    "description": "A classic breakfast sandwich with bacon, egg, and cheese on a toasted English muffin.",
+    "image": "bec-english-muffin.jpg",
     "options": {
-      "category": "Bakery",
-      "price": 1.0,
-      "type": "Snack"
-    },
-    "modifiers": {}
-  },
-  {
-    "name": "Yogurt Parfait",
-    "description": "A layered yogurt parfait with granola and fresh fruits.",
-    "image": "yogurt_parfait.jpg",
-    "options": {
-      "category": "Bakery",
-      "price": 1.0,
-      "type": "Snack"
+      "category": "Breakfast",
+      "price": 4.0,
+      "type": "Breakfast"
     },
     "modifiers": {}
   }

@@ -4,29 +4,59 @@ import supabase from "../config/supabase.js";
 export const useGlobalStore = defineStore("global", {
   state: () => ({
     loggedIn: false,
-    cart: {},
-    totalPrice: 0,
+    cart: JSON.parse(localStorage.getItem("cart")) || {},
+    totalPrice: parseFloat(localStorage.getItem("totalPrice")) || 0,
     orders: {},
+    note: localStorage.getItem("note") || "",
+    name: localStorage.getItem("name") || "",
+    pickupOption: localStorage.getItem("pickupOption") || "Pickup",
+    roomNumber: localStorage.getItem("roomNumber") || "",
+    readyTime: localStorage.getItem("readyTime") || "When ready",
   }),
   actions: {
-    async placeOrder(name, items, price) {
+    saveToLocalStorage() {
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+      localStorage.setItem("totalPrice", this.totalPrice.toString());
+      localStorage.setItem("note", this.note);
+      localStorage.setItem("name", this.name);
+      localStorage.setItem("pickupOption", this.pickupOption);
+      localStorage.setItem("roomNumber", this.roomNumber);
+      localStorage.setItem("readyTime", this.readyTime);
+    },
+    clearCart() {
+      this.cart = {};
+      this.totalPrice = 0;
+      this.note = "";
+      this.name = "";
+      this.pickupOption = "Pickup";
+      this.roomNumber = "";
+      this.readyTime = "When ready";
+      this.saveToLocalStorage();
+    },
+    async placeOrder(
+      name,
+      items,
+      price,
+      note,
+      pickupOption,
+      roomNumber,
+      readyTime
+    ) {
       const itemArray = Object.values(items);
-
-      const formattedItems = itemArray.map((item) => ({
-        name: item.name,
-        quantity: item.quantity,
-      }));
-
-      const formattedModifiers = itemArray.map((item) => ({
-        name: item.name,
-        modifiers: item.selectedModifiers,
-      }));
+      const formattedItems = itemArray.map((item) => [
+        item.name,
+        item.quantity,
+        item.selectedModifiers || {},
+      ]);
 
       const orderData = {
         name: name,
         items: formattedItems,
-        modifiers: formattedModifiers,
         price: price,
+        note: note,
+        pickup: pickupOption,
+        room: roomNumber,
+        readyTime: readyTime,
       };
 
       const { data, error } = await supabase
@@ -35,9 +65,11 @@ export const useGlobalStore = defineStore("global", {
         .select();
 
       if (error) {
-        console.error("Error placing order:", error);
+        console.error("Error inserting order:", error);
+        return false;
       } else {
-        console.log("Order placed!", data);
+        this.clearCart();
+        return true;
       }
     },
     async loadOrders() {
@@ -52,7 +84,7 @@ export const useGlobalStore = defineStore("global", {
             "postgres_changes",
             { event: "*", schema: "public", table: "CurrentOrders" },
             (payload) => {
-              console.log("Change received!", payload);
+              //console.log(payload);
               if (payload.eventType === "INSERT") {
                 this.orders.push(payload.new);
               } else if (payload.eventType === "UPDATE") {
@@ -68,6 +100,20 @@ export const useGlobalStore = defineStore("global", {
             }
           )
           .subscribe();
+      }
+    },
+    async completeOrder(orderId) {
+      const { data, error } = await supabase
+        .from("CurrentOrders")
+        .delete()
+        .eq("id", orderId);
+
+      if (error) {
+        console.error("Error completing order:", error);
+        return false;
+      } else {
+        this.orders = this.orders.filter((order) => order.id !== orderId);
+        return true;
       }
     },
     login(username, password) {
@@ -87,21 +133,31 @@ export const useGlobalStore = defineStore("global", {
       } else {
         this.cart[uniqueKey] = { ...product, quantity };
       }
+      this.updateTotalPrice();
+      this.saveToLocalStorage();
     },
     increaseQuantity(uniqueKey, quantity = 1) {
       if (this.cart[uniqueKey]) {
         this.cart[uniqueKey].quantity += quantity;
+        this.updateTotalPrice();
+        this.saveToLocalStorage();
       }
-      this.totalPrice += this.cart[uniqueKey].options.price;
     },
     decreaseQuantity(uniqueKey, quantity = 1) {
-      this.totalPrice -= this.cart[uniqueKey].options.price;
       if (this.cart[uniqueKey]) {
         this.cart[uniqueKey].quantity -= quantity;
         if (this.cart[uniqueKey].quantity <= 0) {
           delete this.cart[uniqueKey];
         }
+        this.updateTotalPrice();
+        this.saveToLocalStorage();
       }
+    },
+    updateTotalPrice() {
+      this.totalPrice = Object.values(this.cart).reduce(
+        (total, item) => total + item.options.price * item.quantity,
+        0
+      );
     },
   },
 });

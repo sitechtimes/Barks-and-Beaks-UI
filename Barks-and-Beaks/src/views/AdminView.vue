@@ -1,42 +1,150 @@
 <template>
-  <div class="p-4 h-full w-full flex flex-col justify-center items-center">
-    <login-card v-if="!store.loggedIn" class="mb-4" />
-    <div v-else class="w-full max-w-4xl overflow-auto">
-      <table class="min-w-full bg-white shadow-md rounded-lg">
+  <div class="p-6 h-full w-full flex flex-col items-center">
+    <login-card v-if="!store.loggedIn" class="mb-6" />
+
+    <div
+      v-else
+      class="w-full max-w-5xl overflow-auto bg-white shadow-lg rounded-lg p-6"
+    >
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Current Orders</h2>
+
+      <table class="hidden md:table min-w-full border-collapse">
         <thead>
-          <tr>
-            <th class="py-2 px-4 border-b">Customer</th>
-            <th class="py-2 px-4 border-b">Order</th>
-            <th class="py-2 px-4 border-b">Modifiers</th>
-            <th class="py-2 px-4 border-b">Total</th>
+          <tr class="bg-gray-100 text-gray-700 uppercase text-sm">
+            <th class="py-3 px-4 border-b text-left">Customer</th>
+            <th class="py-3 px-4 border-b text-left">Order</th>
+            <th class="py-3 px-4 border-b text-left">Pickup Option</th>
+            <th class="py-3 px-4 border-b text-left">Ready Time</th>
+            <th class="py-3 px-4 border-b text-left">Total</th>
+            <th class="py-3 px-4 border-b text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in orders" :key="order.id" class="hover:bg-gray-100">
-            <td class="py-2 px-4 border-b">{{ order.name }}</td>
-            <td class="py-2 px-4 border-b">
-              <div v-for="item in order.items" :key="item">
-                <div v-for="(value, key) in item" :key="key">
-                  {{ key }}: {{ value }}
-                </div>
+          <tr
+            v-for="order in orders"
+            :key="order.id"
+            class="border-b hover:bg-gray-50"
+          >
+            <td class="py-3 px-4 font-medium text-gray-800">
+              {{ order.name }}
+            </td>
+            <td class="py-3 px-4">
+              <ul class="space-y-2">
+                <li
+                  v-for="(item, index) in order.items"
+                  :key="index"
+                  class="bg-gray-200 p-3 rounded-lg shadow-sm"
+                >
+                  <span class="font-semibold text-gray-900">{{ item[0] }}</span>
+                  <span class="text-gray-600"> (x{{ item[1] }})</span>
+
+                  <div
+                    v-if="item[2] && Object.keys(item[2]).length"
+                    class="mt-2 text-sm text-gray-700"
+                  >
+                    <span class="font-medium text-gray-800">Modifiers:</span>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li v-for="(value, key) in item[2]" :key="key">
+                        <span class="text-gray-800">{{ key }}:</span>
+                        <span v-if="Array.isArray(value)" class="text-gray-600">
+                          {{ value.join(", ") }}</span
+                        >
+                        <span v-else class="text-gray-600"> {{ value }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </td>
+            <td class="py-3 px-4 font-medium text-gray-800">
+              {{ order.pickup }}
+              <div
+                v-if="order.pickup === 'Delivery'"
+                class="text-sm text-gray-600"
+              >
+                Room: {{ order.room }}
               </div>
             </td>
-            <td class="py-2 px-4 border-b">
-              <div v-for="item in order.modifiers" :key="item">
-                {{ item }}
-              </div>
+            <td class="py-3 px-4 font-medium text-gray-800">
+              {{ order.readyTime }}
             </td>
-            <td class="py-2 px-4 border-b">${{ order.price }}</td>
+            <td class="py-3 px-4 font-semibold text-gray-800">
+              ${{ order.price }}
+            </td>
+            <td class="py-3 px-4">
+              <button
+                class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                @click="completeOrder(order.id)"
+              >
+                Complete Order
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
+
+      <div class="md:hidden space-y-4">
+        <div
+          v-for="order in orders"
+          :key="order.id"
+          class="border rounded-lg p-4 shadow-md bg-gray-50"
+        >
+          <h3 class="text-lg font-semibold text-gray-800">{{ order.name }}</h3>
+          <div class="mt-2 space-y-2">
+            <div
+              v-for="(item, index) in order.items"
+              :key="index"
+              class="bg-white p-3 rounded-md shadow-sm"
+            >
+              <span class="font-semibold text-gray-900">{{ item[0] }}</span>
+              <span class="text-gray-600"> (x{{ item[1] }})</span>
+
+              <div
+                v-if="item[2] && Object.keys(item[2]).length"
+                class="mt-2 text-sm text-gray-700"
+              >
+                <span class="font-medium text-gray-800">Modifiers:</span>
+                <ul class="ml-4 list-disc space-y-1">
+                  <li v-for="(value, key) in item[2]" :key="key">
+                    <span class="text-gray-800">{{ key }}:</span>
+                    <span v-if="Array.isArray(value)" class="text-gray-600">
+                      {{ value.join(", ") }}</span
+                    >
+                    <span v-else class="text-gray-600"> {{ value }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 font-medium text-gray-800">
+            Pickup Option: {{ order.pickup }}
+            <div
+              v-if="order.pickup === 'Delivery'"
+              class="text-sm text-gray-600"
+            >
+              Room: {{ order.room }}
+            </div>
+          </div>
+          <div class="mt-1 font-medium text-gray-800">
+            Ready Time: {{ order.readyTime }}
+          </div>
+          <div class="mt-3 font-semibold text-gray-900">
+            Total: ${{ order.price }}
+          </div>
+          <button
+            class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mt-4"
+            @click="completeOrder(order.id)"
+          >
+            Complete Order
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
-
 import { useGlobalStore } from "@/stores/global";
 import loginCard from "@/components/loginCard.vue";
 
@@ -48,26 +156,7 @@ onMounted(async () => {
 
 const orders = computed(() => store.orders);
 
-function placeOrder() {
-  const orderDetails = orders.value.map((order) => {
-    return {
-      name: order.name,
-      items: order.items.map((item) => {
-        return {
-          name: item.name,
-          description: item.description,
-          image: item.image,
-          options: item.options,
-          quantity: item.quantity,
-          selectedModifiers: item.selectedModifiers,
-        };
-      }),
-      modifiers: order.modifiers,
-      price: order.price,
-    };
-  });
-
-  // Assuming you have a function to send the order details to the server
-  store.submitOrder(orderDetails);
-}
+const completeOrder = async (orderId) => {
+  await store.completeOrder(orderId);
+};
 </script>

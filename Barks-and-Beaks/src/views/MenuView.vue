@@ -1,173 +1,91 @@
 <template>
-  <!-- <div class="flex justify-center bg-gray-100 h-full w-full">
-    <div class="card card-body">
-      <div class="">
-        <img
-          :src="item.image"
-          :alt="item.name"
-          class="w-full object-cover"
-        />
-        <h2 class="text-4xl font-semibold text-center">
-          {{ item.name }}
-        </h2>
-        <div class="flex flex-row items-center justify-center">
-          <p class="text-2xl font-bold text-center">
-            ${{ parseFloat(item.options.price).toFixed(2) }}
-          </p>
-        </div>
-        <p class="text-2xl text-center mb-5">{{ item.description }}</p>
-
-        <div
-          v-for="(modifier, modifierName) in item.modifiers"
-          :key="modifierName"
-          class="flex flex-col items-start justify-start w-full"
-        >
-          <h2 class="text-2xl font-bold text-left self-start">
-            {{ modifierName }}
-          </h2>
-          <div
-            class="flex flex-row items-center justify-start w-full du-dropdown"
-            v-for="option in modifier.choices"
-            :key="option"
-          >
-            <input
-              v-if="modifier.limit === 1"
-              type="radio"
-              :name="modifierName"
-              class="radio"
-              v-model="selectedModifiers[modifierName]"
-              :value="option"
-            />
-            <input
-              v-else
-              type="checkbox"
-              :name="modifierName"
-              class="checkbox"
-              v-model="selectedModifiers[modifierName]"
-              :value="option"
-            />
-            <label class="label">
-              <span class="label-text ml-2">{{ option }}</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  </div>
-  <button
-            class="ml-5 transition duration-300 hover:bg-base-300 active:scale-90 ease-in-out rounded-md bg-accent text-white w-full h-10 flex items-center justify-center"
-            @click="addToCart"
-          >
-        Add to Cart
-          </button> -->
-  <div class="flex flex-col items-center h-fit">
-    <!-- item image -->
+  <div
+    class="flex flex-col items-center md:h-auto h-fit p-4 md:max-w-full max-w-lg md:mx-0 mx-auto pb-32"
+  >
     <img
       :src="item.image"
       :alt="item.name"
-      class="w-full h-3/4 object-cover justify-start"
+      class="w-full h-56 md:h-2/5 object-cover rounded-lg shadow-md"
     />
 
-    <!-- item name and price -->
-    <h2 class="text-3xl font-bold mt-4">{{ item.name }}</h2>
-    <p class="text-xl font-semibold text-center">
+    <h2 class="text-2xl font-bold mt-2 text-center">{{ item.name }}</h2>
+    <p class="text-lg font-semibold text-gray-700">
       ${{ parseFloat(item.options.price).toFixed(2) }}
     </p>
 
-    <!-- item description -->
-    <div class="mx-4">
-      <p class="indent-6 text-left">{{ item.description }}</p>
+    <p class="text-sm text-gray-600 mt-2 text-center px-2">
+      {{ item.description }}
+    </p>
 
+    <div class="w-full mt-3">
       <div
         v-for="(modifier, modifierName) in item.modifiers"
         :key="modifierName"
-        class="du-collapse du-collapse-arrow border border-base-300 bg-base-100 rounded-box mt-4"
+        class="border border-gray-300 rounded-lg p-3 bg-white shadow-sm mb-2"
       >
-        <input type="checkbox" />
-        <div class="du-collapse-title text-xl font-medium">
-          {{ modifierName }}
-        </div>
-
-        <div class="du-collapse-content">
-          <ul class="space-y-2">
-            <li
-              v-for="option in modifier.choices"
-              :key="option"
-              class="flex items-center hover:bg-[#859faf]/40 rounded-md transition-all duration-300 py-2"
-            >
+        <h3 class="text-md font-semibold">{{ modifierName }}</h3>
+        <ul class="mt-2 space-y-1">
+          <li
+            v-for="option in modifier.choices"
+            :key="option"
+            class="flex items-center space-x-2"
+          >
+            <label class="flex items-center space-x-2 cursor-pointer">
               <input
                 v-if="modifier.limit === 1"
                 type="radio"
                 :name="modifierName"
-                class=""
                 v-model="selectedModifiers[modifierName]"
                 :value="option"
+                class="cursor-pointer"
               />
               <input
                 v-else
                 type="checkbox"
-                :name="modifierName"
-                class=""
                 v-model="selectedModifiers[modifierName]"
                 :value="option"
+                class="cursor-pointer"
               />
-              <label
-                class="label cursor-pointer ml-2 w-full p-2 flex items-center justify-between rounded-md"
-                @click="
-                  modifier.limit === 1
-                    ? (selectedModifiers[modifierName] = option)
-                    : selectedModifiers[modifierName].includes(option)
-                    ? (selectedModifiers[modifierName] = selectedModifiers[
-                        modifierName
-                      ].filter((selectedOption) => selectedOption !== option))
-                    : (selectedModifiers[modifierName] = [
-                        ...selectedModifiers[modifierName],
-                        option,
-                      ])
-                "
-              >
-                <span class="label-text">{{ option }}</span>
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col gap-3 items-start p-4 w-full">
-      <div
-        class="w-full text-wrap"
-        v-if="Object.keys(item.modifiers).length > 0"
-      >
-        <h3 class="text-2xl font-bold underline">Order</h3>
-        <ul class="list-disc list-inside">
-          <li
-            v-for="(options, modifierName) in selectedModifiers"
-            :key="modifierName"
-          >
-            <strong>{{ modifierName }}:</strong>
-            <span v-if="Array.isArray(options)">{{ options.join(", ") }}</span>
-            <span v-else>{{ options }}</span>
+              <span class="text-sm cursor-pointer">{{ option }}</span>
+            </label>
           </li>
         </ul>
       </div>
+    </div>
 
+    <div
+      class="fixed bottom-0 left-0 w-full bg-white p-3 shadow-md flex justify-center space-x-4"
+    >
       <button
-        class="bg-[#859faf]/40 du-btn h-fit w-full rounded-md transition-all duration-300 hover:bg-[#859faf]/60 active:scale-80 ease-in-out"
+        class="bg-primary text-white px-6 py-3 rounded-lg text-lg font-bold w-3/5 transform transition-transform duration-150 active:scale-90"
         @click="addToCart"
       >
         Add to Cart
       </button>
+      <div
+        class="flex items-center space-x-2 w-2/5 justify-center bg-gray-100 rounded-lg"
+      >
+        <button
+          class="bg-gray-300 text-gray-700 w-10 h-10 rounded-full text-lg font-bold flex items-center justify-center transform transition-transform duration-150 active:scale-90"
+          @click="decreaseQuantity"
+        >
+          -
+        </button>
+        <span class="text-lg font-semibold">{{ quantity }}</span>
+        <button
+          class="bg-gray-300 text-gray-700 w-10 h-10 rounded-full text-lg font-bold flex items-center justify-center transform transition-transform duration-150 active:scale-90"
+          @click="increaseQuantity"
+        >
+          +
+        </button>
+      </div>
     </div>
     <transition
       enter-active-class="animate-expandFromCenter"
       leave-active-class="animate-contractToCenter"
     >
-      <div
-        v-if="added"
-        class="fixed flex flex-row top-3 bg-white p-2 rounded-lg"
-      >
-        <p class="text-success font-bold" v-if="added">Added to cart!</p>
+      <div v-if="added" class="fixed top-3 bg-white p-2 rounded-lg shadow-lg">
+        <p class="text-success font-bold">Added to cart!</p>
       </div>
     </transition>
   </div>
@@ -180,13 +98,12 @@ import { useRoute } from "vue-router";
 import { useGlobalStore } from "@/stores/global";
 
 const store = useGlobalStore();
-
 const route = useRoute();
 const routeName = route.params.id;
 
 const item = data.find((item) => item.name === routeName);
-
 const selectedModifiers = reactive({});
+const quantity = ref(1);
 
 for (const modifierName in item.modifiers) {
   const modifier = item.modifiers[modifierName];
@@ -196,12 +113,9 @@ for (const modifierName in item.modifiers) {
 const checkModifiers = () => {
   for (const modifierName in selectedModifiers) {
     const modifier = item.modifiers[modifierName];
-    if (modifier.limit === 1 && !selectedModifiers[modifierName]) {
+    if (modifier.limit === 1 && !selectedModifiers[modifierName]) return false;
+    if (modifier.limit !== 1 && selectedModifiers[modifierName].length === 0)
       return false;
-    }
-    if (modifier.limit !== 1 && selectedModifiers[modifierName].length === 0) {
-      return false;
-    }
   }
   return true;
 };
@@ -211,15 +125,30 @@ const addToCart = () => {
     alert("Please select all options.");
     return;
   }
+
   const selectedOptions = { ...selectedModifiers };
-  store.addToCart({ ...item, selectedModifiers: selectedOptions }, 1);
-  store.totalPrice += parseFloat(item.options.price);
-  //console.log(store.cart);
+  store.addToCart(
+    {
+      ...item,
+      selectedModifiers: selectedOptions,
+    },
+    quantity.value
+  );
+
   added.value = true;
   setTimeout(() => {
     added.value = false;
   }, 2000);
 };
 
+const increaseQuantity = () => {
+  quantity.value += 1;
+};
+
+const decreaseQuantity = () => {
+  if (quantity.value > 1) {
+    quantity.value -= 1;
+  }
+};
 const added = ref(false);
 </script>
