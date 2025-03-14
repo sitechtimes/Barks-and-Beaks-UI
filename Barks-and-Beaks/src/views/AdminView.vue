@@ -6,7 +6,9 @@
       v-else
       class="w-full max-w-5xl overflow-auto bg-white shadow-lg rounded-lg p-6"
     >
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Current Orders</h2>
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4 mt-3 md:mt-0">
+        Current Orders
+      </h2>
 
       <table class="hidden md:table min-w-full border-collapse">
         <thead>

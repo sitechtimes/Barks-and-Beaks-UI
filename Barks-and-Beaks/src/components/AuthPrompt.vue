@@ -29,7 +29,7 @@ const code = ref("");
 const error = ref("");
 
 const checkCode = () => {
-  const validCode = "12345";
+  const validCode = "A7B3C";
   if (code.value === validCode) {
     localStorage.setItem("authorized", "true");
     window.location.reload();

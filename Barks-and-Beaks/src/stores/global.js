@@ -12,8 +12,24 @@ export const useGlobalStore = defineStore("global", {
     pickupOption: localStorage.getItem("pickupOption") || "Pickup",
     roomNumber: localStorage.getItem("roomNumber") || "",
     readyTime: localStorage.getItem("readyTime") || "When ready",
+    checkout: false,
   }),
   actions: {
+    async uploadStats(items) {
+      const itemArray = Object.values(items);
+      const formattedItems = itemArray.map((item) => [
+        item.name,
+        item.quantity,
+        item.selectedModifiers || {},
+      ]);
+      const { data, error } = await supabase
+        .from("stats")
+        .insert([{ Order: formattedItems }])
+        .select("");
+      if (error) {
+        return false;
+      }
+    },
     saveToLocalStorage() {
       localStorage.setItem("cart", JSON.stringify(this.cart));
       localStorage.setItem("totalPrice", this.totalPrice.toString());
@@ -48,6 +64,10 @@ export const useGlobalStore = defineStore("global", {
         item.quantity,
         item.selectedModifiers || {},
       ]);
+      const formattedData = itemArray.map((item) => ({
+        name: item.name,
+        modifiers: item.selectedModifiers || {},
+      }));
 
       const orderData = {
         name: name,
@@ -117,7 +137,7 @@ export const useGlobalStore = defineStore("global", {
       }
     },
     login(username, password) {
-      if (username === "admin" && password === "password") {
+      if (username === "ToastAdmin" && password === "Beaksoftech") {
         this.loggedIn = true;
         return true;
       } else {

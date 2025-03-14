@@ -42,7 +42,7 @@
         What can we get you started with?
       </h1>
       <h1
-        class="text-2xl font-semibold text-center my-3 mt-5 justify-center underline"
+        class="text-3xl font-bold text-center my-3 mt-5 justify-center underline"
         v-if="drinks.length > 0"
       >
         DRINKS
@@ -51,7 +51,7 @@
         <itemCard :items="drinks" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3 mt-5 underline"
+        class="text-3xl font-bold text-center my-3 mt-5 underline"
         v-if="drinks.length > 0"
       >
         BAKERY
@@ -60,7 +60,7 @@
         <itemCard :items="bakery" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3 underline"
+        class="text-3xl font-bold text-center my-3 underline"
         v-if="snacks.length > 0"
       >
         SNACKS
@@ -69,7 +69,7 @@
         <itemCard :items="snacks" />
       </div>
       <h1
-        class="text-2xl font-semibold text-center my-3 mt-5 underline"
+        class="text-3xl font-bold text-center my-3 mt-5 underline"
         v-if="breakfast.length > 0"
       >
         BREAKFAST
@@ -79,14 +79,14 @@
       </div>
     </div>
     <h1
-      class="text-2xl font-semibold text-center my-3"
+      class="text-3xl font-bold text-center my-3"
       v-if="totalSearchItems === 0"
     >
       Sorry, we couldn't find anything for "{{ search }}" :
     </h1>
     <p
       v-if="search.length === 0"
-      class="text-2xl font-semibold text-center mt-3 mb-16"
+      class="text-3xl font-bold text-center mt-3 mb-16"
     >
       Are you an Admin?
       <router-link to="/admin" class="text-primary">Click here</router-link>
@@ -105,7 +105,7 @@
     enter-active-class="animate-slideIn"
     leave-active-class="animate-slideOut"
   >
-    <checkout v-if="cartOpen" @close="cartOpen = false" />
+    <checkout v-if="cartOpen" @close="global.checkout = false" />
   </transition>
   <transition
     enter-active-class="animate-slideIn"
@@ -116,7 +116,7 @@
       @touchstart="handleTouchStart"
       @touchmove="handleTouchMove"
       @touchend="handleTouchEnd"
-      @click="cartOpen = true"
+      @click="global.checkout = true"
       v-if="!cartOpen"
     >
       <h1 class="text-xl font-bold">YOUR ORDER</h1>
@@ -134,6 +134,8 @@ import data from "../assets/data.json";
 import { ref, computed } from "vue";
 import itemCard from "@/components/itemCard.vue";
 import checkout from "@/components/checkout.vue";
+import { useGlobalStore } from "@/stores/global";
+const global = useGlobalStore();
 
 const search = ref("");
 
@@ -176,7 +178,7 @@ const totalSearchItems = computed(() => {
     breakfast.value.length
   );
 });
-const cartOpen = ref(false);
+const cartOpen = computed(() => global.checkout);
 
 let startY = 0;
 const handleTouchStart = (event) => {
@@ -188,7 +190,7 @@ const handleTouchMove = (event) => {
   const diffY = currentY - startY;
 
   if (diffY < -25 && startY && window.innerHeight - currentY < 100) {
-    cartOpen.value = true;
+    global.checkout = true;
   }
 };
 

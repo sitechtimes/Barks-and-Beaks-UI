@@ -1,24 +1,18 @@
 <template>
   <div
-    class="fixed inset-0 flex items-center justify-center z-50 w-full h-full"
+    class="fixed inset-0 flex items-center justify-center z-40 w-full h-full"
     @touchstart="handleTouchStart"
     @touchmove="handleTouchMove"
     @touchend="handleTouchEnd"
   >
     <div
-      class="flex flex-col overflow-scroll checkout-container p-4 bg-white shadow-md w-full z-50 h-full"
+      class="flex flex-col overflow-scroll checkout-container p-4 bg-white shadow-md w-full z-40 h-full"
     >
       <div
-        class="flex flex-row justify-between text-center items-center mb-4"
+        class="flex flex-row text-center justify-center items-center mb-4"
         @click.self="closeCheckout"
       >
         <h1 class="text-2xl font-bold">Checkout</h1>
-        <button
-          class="border-2 border-black transition-all duration-125 hover:bg-base-300 active:scale-90 ease-in-out bg-base-200 rounded-full w-10 h-10 flex items-center justify-center text-black"
-          @click="closeCheckout"
-        >
-          <img src="../assets/close.svg" alt="cart" class="w-8 h-8" />
-        </button>
       </div>
       <form @submit.prevent="handleSubmit">
         <div class="mb-4">
@@ -38,10 +32,10 @@
           <div class="flex space-x-4 mt-2">
             <button
               type="button"
-              class="px-4 py-2 rounded-lg text-sm font-medium transition-all w-1/2"
+              class="px-4 py-2 rounded-md text-sm font-medium transition-all w-1/2 duration-200 ease-in-out"
               :class="
                 global.pickupOption === 'Pickup'
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-gray-200'
               "
               @click="global.pickupOption = 'Pickup'"
@@ -50,10 +44,10 @@
             </button>
             <button
               type="button"
-              class="px-4 py-2 rounded-lg text-sm font-medium transition-all w-1/2"
+              class="px-4 py-2 rounded-md text-sm font-medium transition-all w-1/2 duration-200 ease-in-out"
               :class="
                 global.pickupOption === 'Delivery'
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-gray-200'
               "
               @click="global.pickupOption = 'Delivery'"
@@ -66,7 +60,7 @@
             type="text"
             v-model="global.roomNumber"
             placeholder="Enter your room number"
-            class="w-full mt-2 p-2 border border-gray-300 rounded-lg text-sm"
+            class="w-full mt-2 p-2 border border-gray-300 rounded-md text-sm"
           />
         </div>
         <div class="mb-4">
@@ -155,7 +149,7 @@
         <div class="flex justify-between gap-3 items-center mb-4">
           <button
             type="submit"
-            class="w-4/5 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+            class="w-4/5 bg-primary text-white py-2 px-4 rounded-md hover:bg-indigo-700"
           >
             Place Order
           </button>
@@ -198,6 +192,7 @@ const handleSubmit = () => {
     global.roomNumber,
     global.readyTime
   );
+  global.uploadStats(global.cart);
   if (!order) {
     alert("Something went wrong. Please try again.");
     return;

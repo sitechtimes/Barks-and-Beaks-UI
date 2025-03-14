@@ -5,7 +5,7 @@
     <img
       :src="item.image"
       :alt="item.name"
-      class="w-full h-56 md:h-2/5 object-cover rounded-lg shadow-md"
+      class="w-full h-56 md:h-1/4 object-cover rounded-lg shadow-md"
     />
 
     <h2 class="text-2xl font-bold mt-2 text-center">{{ item.name }}</h2>
