@@ -136,9 +136,30 @@ export const useGlobalStore = defineStore("global", {
         return true;
       }
     },
-    login(username, password) {
-      if (username === "ToastAdmin" && password === "Beaksoftech") {
+    async login(username, password) {
+      let { data: logins, error } = await supabase.from("logins").select("*");
+      if (error) {
+        console.error("Error fetching logins:", error);
+        return false;
+      }
+      const user = logins.find(
+        (login) => login.adminUser === username && login.adminPass === password
+      );
+      if (user) {
         this.loggedIn = true;
+        return true;
+      } else {
+        return false;
+      }
+    },
+    async loginSite(code) {
+      let { data: logins, error } = await supabase.from("logins").select("*");
+      if (error) {
+        console.error("Error fetching logins:", error);
+        return false;
+      }
+      const user = logins.find((login) => login.siteLogin === code);
+      if (user) {
         return true;
       } else {
         return false;

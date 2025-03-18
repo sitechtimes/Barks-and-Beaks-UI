@@ -50,6 +50,8 @@ const loginSuccessful = ref(null);
 const store = useGlobalStore();
 
 function attemptLogin() {
-  loginSuccessful.value = store.login(username.value, password.value);
+  store.login(username.value, password.value).then((success) => {
+    loginSuccessful.value = success;
+  });
 }
 </script>

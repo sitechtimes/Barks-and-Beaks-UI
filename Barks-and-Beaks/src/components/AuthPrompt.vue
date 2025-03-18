@@ -24,17 +24,19 @@
 
 <script setup>
 import { ref } from "vue";
+import { useGlobalStore } from "@/stores/global";
 
+const store = useGlobalStore();
 const code = ref("");
 const error = ref("");
 
 const checkCode = () => {
-  const validCode = "A7B3C";
-  if (code.value === validCode) {
+  let login = store.loginSite(code.value);
+  if (login) {
     localStorage.setItem("authorized", "true");
     window.location.reload();
   } else {
-    error.value = "Invalid code. Please try again.";
+    error.value = "Invalid code";
   }
 };
 </script>
