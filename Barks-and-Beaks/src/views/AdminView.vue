@@ -76,7 +76,7 @@
             <td class="py-3 px-4">
               <button
                 class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-                @click="completeOrder(order.id)"
+                @click="showConfirmComplete(order.id)"
               >
                 Complete Order
               </button>
@@ -135,12 +135,17 @@
           </div>
           <button
             class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mt-4"
-            @click="completeOrder(order.id)"
+            @click="showConfirmComplete(order.id)"
           >
             Complete Order
           </button>
         </div>
       </div>
+      <confirm-complete
+        v-if="showConfirm"
+        @confirm="completeOrder"
+        @cancel="cancelComplete"
+      />
     </div>
   </div>
 </template>
@@ -149,8 +154,11 @@
 import { ref, onMounted, computed } from "vue";
 import { useGlobalStore } from "@/stores/global";
 import loginCard from "@/components/loginCard.vue";
+import confirmComplete from "@/components/confirmComplete.vue";
 
 const store = useGlobalStore();
+const showConfirm = ref(false);
+let currentOrderId = null;
 
 onMounted(async () => {
   store.loadOrders();
@@ -158,7 +166,21 @@ onMounted(async () => {
 
 const orders = computed(() => store.orders);
 
-const completeOrder = async (orderId) => {
-  await store.completeOrder(orderId);
+const completeOrder = async () => {
+  showConfirm.value = false;
+  if (currentOrderId !== null) {
+    await store.completeOrder(currentOrderId);
+    currentOrderId = null;
+  }
+};
+
+const cancelComplete = () => {
+  showConfirm.value = false;
+  currentOrderId = null;
+};
+
+const showConfirmComplete = (orderId) => {
+  currentOrderId = orderId;
+  showConfirm.value = true;
 };
 </script>

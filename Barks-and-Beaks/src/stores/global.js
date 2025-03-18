@@ -15,16 +15,20 @@ export const useGlobalStore = defineStore("global", {
     checkout: false,
   }),
   actions: {
-    async uploadStats(items) {
+    async uploadStats(items, ordername) {
       const itemArray = Object.values(items);
       const formattedItems = itemArray.map((item) => [
         item.name,
         item.quantity,
         item.selectedModifiers || {},
       ]);
+      const finalData = {
+        Order: formattedItems,
+        Name: ordername,
+      };
       const { data, error } = await supabase
         .from("stats")
-        .insert([{ Order: formattedItems }])
+        .insert([{ Order: finalData }])
         .select("");
       if (error) {
         return false;
