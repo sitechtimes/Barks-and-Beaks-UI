@@ -31,7 +31,7 @@ const code = ref("");
 const error = ref("");
 
 const checkCode = () => {
-  let login = store.loginSite(code.value);
+  let login = store.loginSite(code.value.toUpperCase());
   if (login) {
     localStorage.setItem("authorized", "true");
     window.location.reload();
