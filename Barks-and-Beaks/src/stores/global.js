@@ -13,25 +13,114 @@ export const useGlobalStore = defineStore("global", {
     roomNumber: localStorage.getItem("roomNumber") || "",
     readyTime: localStorage.getItem("readyTime") || "When ready",
     checkout: false,
+    stats: {},
   }),
   actions: {
-    async uploadStats(items, ordername) {
+    async loadStats() {
+      let { data: stats, error } = await supabase.from("stats").select("*");
+      if (stats) {
+        this.stats = stats;
+        supabase
+          .channel("custom-all-channel")
+          .on(
+            "postgres_changes",
+            { event: "*", schema: "public", table: "stats" },
+            (payload) => {
+              //console.log(payload);
+              if (payload.eventType === "INSERT") {
+                this.orders.push(payload.new);
+              } else if (payload.eventType === "UPDATE") {
+                const index = this.orders.findIndex(
+                  (order) => order.id === payload.new.id
+                );
+                this.orders[index] = payload.new;
+              } else if (payload.eventType === "DELETE") {
+                this.orders = this.orders.filter(
+                  (order) => order.id !== payload.old.id
+                );
+              }
+            }
+          )
+          .subscribe();
+      }
+    },
+    async restoreItem(
+      name,
+      items,
+      price,
+      note,
+      pickupOption,
+      roomNumber,
+      readyTime,
+      id
+    ) {
+      this.stats = this.stats.filter((order) => order.id !== id); //gets rid of the order that was restored in the stats section
+      const { error } = await supabase.from("stats").delete().eq("id", id); //deletes the order from the stats section in supabase
+      if (error) {
+        console.error("Error deleting order from stats:", error);
+        return false;
+      }
+      const orderData = {
+        name: name,
+        items: items,
+        price: price,
+        note: note,
+        pickup: pickupOption,
+        room: roomNumber,
+        readyTime: readyTime,
+      };
+      const { data, insertError } = await supabase
+        .from("CurrentOrders")
+        .insert([orderData])
+        .select();
+      if (insertError) {
+        console.error("Error inserting order into CurrentOrders:", insertError);
+        return false;
+      }
+      return true;
+    },
+
+    async uploadStats(
+      name,
+      items,
+      price,
+      note,
+      pickupOption,
+      roomNumber,
+      readyTime
+    ) {
       const itemArray = Object.values(items);
       const formattedItems = itemArray.map((item) => [
         item.name,
         item.quantity,
         item.selectedModifiers || {},
       ]);
-      const finalData = {
-        Order: formattedItems,
-        Name: ordername,
+      const formattedData = itemArray.map((item) => ({
+        name: item.name,
+        modifiers: item.selectedModifiers || {},
+      }));
+
+      const orderData = {
+        name: name,
+        items: formattedItems,
+        price: price,
+        note: note,
+        pickup: pickupOption,
+        room: roomNumber,
+        readyTime: readyTime,
       };
+
       const { data, error } = await supabase
         .from("stats")
-        .insert([{ Order: finalData }])
-        .select("");
+        .insert([orderData])
+        .select();
+
       if (error) {
+        console.error("Error inserting order:", error);
         return false;
+      } else {
+        this.clearCart();
+        return true;
       }
     },
     saveToLocalStorage() {
@@ -128,7 +217,7 @@ export const useGlobalStore = defineStore("global", {
     },
     async completeOrder(orderId) {
       const { data, error } = await supabase
-        .from("CurrentOrders")
+        .from("stats")
         .delete()
         .eq("id", orderId);
 

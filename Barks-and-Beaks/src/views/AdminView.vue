@@ -18,6 +18,7 @@
             <th class="py-3 px-4 border-b text-left">Pickup Option</th>
             <th class="py-3 px-4 border-b text-left">Ready Time</th>
             <th class="py-3 px-4 border-b text-left">Total</th>
+            <th class="py-3 px-4 border-b text-left">Note</th>
             <th class="py-3 px-4 border-b text-left">Actions</th>
           </tr>
         </thead>
@@ -72,6 +73,9 @@
             </td>
             <td class="py-3 px-4 font-semibold text-gray-800">
               ${{ order.price }}
+            </td>
+            <td class="py-3 px-4 font-medium text-gray-800">
+              {{ order.note }}
             </td>
             <td class="py-3 px-4">
               <button
@@ -130,6 +134,9 @@
           <div class="mt-1 font-medium text-gray-800">
             Ready Time: {{ order.readyTime }}
           </div>
+          <div class="mt-1 font-medium text-gray-800">
+            Note: {{ order.note }}
+          </div>
           <div class="mt-3 font-semibold text-gray-900">
             Total: ${{ order.price }}
           </div>
@@ -146,6 +153,70 @@
         @confirm="completeOrder"
         @cancel="cancelComplete"
       />
+
+      <div v-if="completedOrders.length" class="mt-6 w-full max-w-5xl">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+          Completed Orders
+        </h2>
+        <table class="min-w-full border-collapse">
+          <thead>
+            <tr class="bg-gray-100 text-gray-700 uppercase text-sm">
+              <th class="py-3 px-4 border-b text-left">Customer</th>
+              <th class="py-3 px-4 border-b text-left">Order</th>
+              <th class="py-3 px-4 border-b text-left">Pickup Option</th>
+              <th class="py-3 px-4 border-b text-left">Ready Time</th>
+              <th class="py-3 px-4 border-b text-left">Total</th>
+              <th class="py-3 px-4 border-b text-left">Note</th>
+              <th class="py-3 px-4 border-b text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="order in completedOrders"
+              :key="order.id"
+              class="border-b hover:bg-gray-50"
+            >
+              <td class="py-3 px-4 font-medium text-gray-800">
+                {{ order.name }}
+              </td>
+              <td class="py-3 px-4">
+                <ul class="space-y-2">
+                  <li
+                    v-for="(item, index) in order.items"
+                    :key="index"
+                    class="bg-gray-200 p-3 rounded-lg shadow-sm"
+                  >
+                    <span class="font-semibold text-gray-900">{{
+                      item[0]
+                    }}</span>
+                    <span class="text-gray-600"> (x{{ item[1] }})</span>
+                  </li>
+                </ul>
+              </td>
+              <td class="py-3 px-4 font-medium text-gray-800">
+                {{ order.pickup }}
+              </td>
+              <td class="py-3 px-4 font-medium text-gray-800">
+                {{ order.readyTime }}
+              </td>
+              <td class="py-3 px-4 font-semibold text-gray-800">
+                ${{ order.price }}
+              </td>
+              <td class="py-3 px-4 font-medium text-gray-800">
+                {{ order.note }}
+              </td>
+              <td class="py-3 px-4">
+                <button
+                  class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  @click="restoreOrder(order.id)"
+                >
+                  Restore Order
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -162,13 +233,16 @@ let currentOrderId = null;
 
 onMounted(async () => {
   store.loadOrders();
+  store.loadStats();
 });
 
 const orders = computed(() => store.orders);
+const completedOrders = computed(() => store.stats);
 
 const completeOrder = async () => {
   showConfirm.value = false;
   if (currentOrderId !== null) {
+    const order = store.orders.find((order) => order.id === currentOrderId);
     await store.completeOrder(currentOrderId);
     currentOrderId = null;
   }
@@ -182,5 +256,21 @@ const cancelComplete = () => {
 const showConfirmComplete = (orderId) => {
   currentOrderId = orderId;
   showConfirm.value = true;
+};
+
+const restoreOrder = async (orderId) => {
+  const order = completedOrders.value.find((order) => order.id === orderId);
+  if (order) {
+    await store.restoreItem(
+      order.name,
+      order.items,
+      order.price,
+      order.note,
+      order.pickup,
+      order.room,
+      order.readyTime,
+      orderId
+    );
+  }
 };
 </script>

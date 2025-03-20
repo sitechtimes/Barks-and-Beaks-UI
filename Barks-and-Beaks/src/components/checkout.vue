@@ -192,7 +192,15 @@ const handleSubmit = () => {
     global.roomNumber,
     global.readyTime
   );
-  global.uploadStats(global.cart);
+  let stats = global.uploadStats(
+    global.name,
+    global.cart,
+    global.totalPrice,
+    global.note,
+    global.pickupOption,
+    global.roomNumber,
+    global.readyTime
+  );
   if (!order) {
     alert("Something went wrong. Please try again.");
     return;
