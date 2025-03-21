@@ -54,12 +54,6 @@ export const useGlobalStore = defineStore("global", {
       readyTime,
       id
     ) {
-      this.stats = this.stats.filter((order) => order.id !== id); //gets rid of the order that was restored in the stats section
-      const { error } = await supabase.from("stats").delete().eq("id", id); //deletes the order from the stats section in supabase
-      if (error) {
-        console.error("Error deleting order from stats:", error);
-        return false;
-      }
       const orderData = {
         name: name,
         items: items,
@@ -217,7 +211,7 @@ export const useGlobalStore = defineStore("global", {
     },
     async completeOrder(orderId) {
       const { data, error } = await supabase
-        .from("stats")
+        .from("CurrentOrders")
         .delete()
         .eq("id", orderId);
 

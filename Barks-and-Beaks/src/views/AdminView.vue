@@ -176,10 +176,16 @@
               :key="order.id"
               class="border-b hover:bg-gray-50"
             >
-              <td class="py-3 px-4 font-medium text-gray-800">
+              <td
+                class="py-3 px-4 font-medium text-gray-800"
+                v-if="isOrderToday(order.created_at.slice(0, 10))"
+              >
                 {{ order.name }}
               </td>
-              <td class="py-3 px-4">
+              <td
+                class="py-3 px-4"
+                v-if="isOrderToday(order.created_at.slice(0, 10))"
+              >
                 <ul class="space-y-2">
                   <li
                     v-for="(item, index) in order.items"
@@ -193,19 +199,34 @@
                   </li>
                 </ul>
               </td>
-              <td class="py-3 px-4 font-medium text-gray-800">
+              <td
+                class="py-3 px-4 font-medium text-gray-800"
+                v-if="isOrderToday(order.created_at.slice(0, 10))"
+              >
                 {{ order.pickup }}
               </td>
-              <td class="py-3 px-4 font-medium text-gray-800">
+              <td
+                class="py-3 px-4 font-medium text-gray-800"
+                v-if="isOrderToday(order.created_at.slice(0, 10))"
+              >
                 {{ order.readyTime }}
               </td>
-              <td class="py-3 px-4 font-semibold text-gray-800">
+              <td
+                class="py-3 px-4 font-semibold text-gray-800"
+                v-if="isOrderToday(order.created_at.slice(0, 10))"
+              >
                 ${{ order.price }}
               </td>
-              <td class="py-3 px-4 font-medium text-gray-800">
+              <td
+                class="py-3 px-4 font-medium text-gray-800"
+                v-if="isOrderToday(order.created_at.slice(0, 10))"
+              >
                 {{ order.note }}
               </td>
-              <td class="py-3 px-4">
+              <td
+                class="py-3 px-4"
+                v-if="isOrderToday(order.created_at.slice(0, 10))"
+              >
                 <button
                   class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                   @click="restoreOrder(order.id)"
@@ -236,6 +257,10 @@ onMounted(async () => {
   store.loadStats();
 });
 
+const date = new Date();
+const currentDate = date.toLocaleDateString("en-US", {
+  timeZone: "America/New_York",
+});
 const orders = computed(() => store.orders);
 const completedOrders = computed(() => store.stats);
 
@@ -272,5 +297,14 @@ const restoreOrder = async (orderId) => {
       orderId
     );
   }
+};
+
+const formatDate = (dateString) => {
+  const [year, month, day] = dateString.split("-");
+  return `${Number(month)}/${Number(day)}/${year}`;
+};
+
+const isOrderToday = (orderDate) => {
+  return currentDate === formatDate(orderDate);
 };
 </script>
